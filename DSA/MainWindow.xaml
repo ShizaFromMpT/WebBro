@@ -6,10 +6,12 @@
         xmlns:local="clr-namespace:DSA"
         mc:Ignorable="d"
         WindowStyle="None"
-        ResizeMode="NoResize"
-        Title="MainWindow" Height="800" Width="1200">
+       Background="Transparent"
+        AllowsTransparency="True"
+        Title="MainWindow" Height="800" Width="1200" BorderBrush="{x:Null}" >
 
     <Window.Resources>
+
         <SolidColorBrush x:Key="colorWhite" Color="White" />
         <SolidColorBrush x:Key="coloLiterWhite" Color="#FFCBCBCB" />
         <SolidColorBrush x:Key="ColorGreat" Color="#FF171717" />
@@ -33,66 +35,31 @@
 
         <SolidColorBrush x:Key="Aurora_rad" Color="#BF616A" />
 
-
-        <Style x:Key="BorderR10" TargetType="Border">
-            <Setter Property="CornerRadius" Value="10"/>
-        </Style>
-
-
-        <Style x:Key="tabItem" TargetType="TabItem">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="TabItem" >
-                        <Grid Name="Panel" Width="150" Height="25">
-                            <ContentPresenter 
-                                        x:Name="ContentSite"
-                                        VerticalAlignment="Center" 
-                                        HorizontalAlignment="Left"
-                                        ContentSource="Header" 
-                                        TextBlock.FontSize="15" 
-                                        Margin="2,3"
-                                        TextBlock.Foreground="{DynamicResource SnowStorm_1}"
-                                    />
-                            <Button Content="×" 
-                                    x:Name="Btn"
-                                    Click="OnTabCloseClick" 
-                                    HorizontalAlignment="Right" 
-                                    Foreground="{DynamicResource Aurora_rad}"  
-                                    FontSize="20" 
-                                    Padding="0,-6,0,0" 
-                                    BorderBrush="{x:Null}" 
-                                    Background="{x:Null}" 
-                                    Width="20" Height="20" 
-                                    FontWeight="Bold"/>
-                        </Grid>
-
-
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsSelected" Value="True">
-                                <Setter TargetName="Panel" Property="Background" Value="{DynamicResource Frost_3}" />
-                            </Trigger>
-                            <Trigger Property="IsSelected" Value="False">
-                                <Setter TargetName="Panel" Property="Background" Value="{DynamicResource PolarNight_3}" />
-                            </Trigger>
-
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-
-        <Style TargetType="StackPanel" x:Key="GlobalStackPanelStyle">
-            <Style.Resources>
-                <Style TargetType="TextBlock">
-                    <Setter Property="Background" Value="Green" />
-                </Style>
-                
-                
-
+        <ControlTemplate TargetType="Button" x:Key="ButtonTemplate">
+            <Border  x:Name="buttonBorder"  BorderBrush="{DynamicResource PolarNight_4}" BorderThickness="2"
+                    Background="{x:Null}">
+                <ContentPresenter RecognizesAccessKey="True" 
+                                  VerticalAlignment="Center"   
+                                  HorizontalAlignment="Center" 
+                                  TextBlock.FontSize="15"
+                                  TextBlock.FontWeight="Bold"
+                                />
+            </Border>
+            
+            
+            <ControlTemplate.Triggers>
                
-            </Style.Resources>
-        </Style>
+                <Trigger Property="IsMouseOver" Value="false">
+                    <Setter Property="Button.Foreground" Value="{DynamicResource PolarNight_4}" />
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter Property="Button.Foreground" Value="{DynamicResource PolarNight_4}" />
+                </Trigger>
+                <Trigger Property="IsPressed" Value="true">
+                    <Setter Property="Button.Foreground" Value="{DynamicResource Frost_1}" />
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
 
 
     </Window.Resources>
@@ -100,72 +67,89 @@
     <Grid  Background="{DynamicResource PolarNight_1}">
         <Grid.RowDefinitions>
             <RowDefinition Height="25"/>
+            <RowDefinition Height="30"/>
+
             <RowDefinition />
         </Grid.RowDefinitions>
 
         <Grid Background="{DynamicResource PolarNight_4}" 
               Grid.ColumnSpan="5"
-              MouseDown="Grid_Mouse">
-            <Button Content="🞄"  FontSize="60" Margin="1175,0,0,0"  Width="25" Height="25" Foreground="#FFFB5C5C" Background="{x:Null}" BorderBrush="{x:Null}" Click="Button_Click" Padding="1,-31,1,1" />
-            <Button Content="🞄"  FontSize="60" Margin="1150,0,25,0"  Width="25" Height="25" Foreground="#FF5CD1FB" Background="{x:Null}" BorderBrush="{x:Null}" Click="Button_Click_SV"  Padding="1,-31,1,1" />
+              MouseDown="Grid_Mouse"
+              >
+            <Button Content="🞄"  FontSize="59"  Width="25" Height="25" HorizontalAlignment="Right" VerticalAlignment="Center" Foreground="#FFFB5C5C" Background="{x:Null}" BorderBrush="{x:Null}" Click="Button_Click" Padding="0,-30,0,0" />
+            <Button Content="🞄"  FontSize="59" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,25,0"   Width="25" Height="25" Foreground="#FF5CD1FB" Background="{x:Null}" BorderBrush="{x:Null}" Click="Button_Click_FullScreen"   Padding="0,-30,0,0"  />
+            <Button Content="🞄"  FontSize="59" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,50,0"   Width="25" Height="25" Foreground="#FFFFC850" Background="{x:Null}" BorderBrush="{x:Null}" Click="Button_Click_SV"   Padding="0,-30,0,0"  />
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition  Width="35"/>
+                <ColumnDefinition  Width="35"/>
+                <ColumnDefinition  Width="35"/>
+                <ColumnDefinition  Width="35"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="35"/>
+                <ColumnDefinition Width="35"/>
+            </Grid.ColumnDefinitions>
+            <TextBox x:Name="SearchTextBox" KeyDown="SearchTextBox_KeyDown" BorderThickness="2" Background="{x:Null}" BorderBrush="{DynamicResource PolarNight_4 }" Grid.Column="4" Text="{Binding Path=Sourse}" Height="30" Grid.Row="1"/>
+            <Button Content="❮" HorizontalAlignment="Center" Template="{StaticResource ButtonTemplate}" Width="35"  Click="Button_Click_Back" />
+            <Button Content="❯" Grid.Column="1" HorizontalAlignment="Left" Template="{StaticResource ButtonTemplate}" Width="35"   Click="Button_Click_Next"/>
+            <Button Content="⭮" Grid.Column="2" HorizontalAlignment="Left" Template="{StaticResource ButtonTemplate}" Width="35" Click="Button_Click_Update" />
+            <Button Content="⌂" Grid.Column="3" HorizontalAlignment="Left"  Template="{StaticResource ButtonTemplate}" Width="35" Click="Button_Click_GoHome"/>
+            <Button Content="≡" Grid.Column="5" HorizontalAlignment="Left" FontSize="20"  Width="35" Template="{StaticResource ButtonTemplate}"  />
+            <Button Content="⚙" Grid.Column="6" HorizontalAlignment="Left"  Template="{StaticResource ButtonTemplate}" Width="35" />
+
+
         </Grid>
 
 
-
-        <TabControl  x:Name="MyTabControl" Grid.Row="2" Background="{DynamicResource Frost_3}">
+        <TabControl  x:Name="MyTabControl"  Grid.Row="3" Background="{DynamicResource Frost_3}">
             <TabControl.ItemTemplate>
-                <DataTemplate >
-                    <StackPanel Orientation="Horizontal">
-                        
-                        <TextBlock Text="{Binding Header, Mode=OneWay}" 
-                                    VerticalAlignment="Center" 
-                                    HorizontalAlignment="Left"
-                                    TextBlock.FontSize="15" 
-                                    Margin="2,3"
-                                    Background="{DynamicResource Frost_3}" 
-                                    TextBlock.Foreground="{DynamicResource Frost_3}"
+                <DataTemplate>
+                    <Grid Background="{x:Null}">
+                        <StackPanel Orientation="Horizontal" Height="25" Background="{x:Null}">
+                            <Label Content="{Binding Header, Mode=OneWay}" 
+                                   VerticalAlignment="Center" 
+                                   HorizontalAlignment="Left"
+                                   
+                                   TextBlock.FontSize="9" 
+                                   TextBlock.Foreground="{DynamicResource Frost_3}"
                                    />
-                        <Button Click="OnTabCloseClick" Padding="0" Margin="8 0 0 0"
+                            <Button Click="OnTabCloseClick"  Margin="10 0 0 0"
                                HorizontalAlignment="Right" 
                                Foreground="{DynamicResource Aurora_rad}"  
-                               FontSize="12" 
+                               FontSize="10" 
                                BorderBrush="{x:Null}" 
                                Background="{x:Null}" 
-                               Width="20" Height="20" 
+                              
                                FontWeight="Bold"
                                Content="x">
-                            <Button.Style>
-                                <Style TargetType="Button" x:Name="CloseButtonStyle">
-                                    <Setter Property="Visibility" Value="Visible"/>
-                                    
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding IsPlaceholder}" Value="True">
-                                            <Setter Property="Visibility" Value="Collapsed"/>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Button.Style>
-                        </Button>
-                    </StackPanel>
+                                <Button.Style>
+
+
+                                    <Style TargetType="Button" x:Name="CloseButtonStyle">
+                                        <Setter Property="Visibility" Value="Visible"/>
+
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsPlaceholder}" Value="True">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
+                        </StackPanel>
+                    </Grid>
                 </DataTemplate>
             </TabControl.ItemTemplate>
 
-            <!--
-            -->
-            
+
+
             <TabControl.ContentTemplate>
                 <DataTemplate>
                     <ContentControl>
                         <ContentControl.Resources>
-                            <ContentControl x:Key="TabContentTemplate" Content="{Binding Content}">
-                                <!--
-                                <StackPanel DataContext="{Binding Content}" Orientation="Vertical">
-                                    <TextBlock Text="{Binding Path=Name}"/>
-                                    <TextBlock Text="{Binding Path=Index}"/>
-                                </StackPanel>
-                                -->
-
-                            </ContentControl>
+                            <ContentControl x:Key="TabContentTemplate"  Content="{Binding Content}"/>
                         </ContentControl.Resources>
                         <ContentControl.Style>
                             <Style TargetType="ContentControl">
@@ -177,7 +161,6 @@
                                         <Setter Property="Content" Value="{StaticResource TabContentTemplate}"/>
                                     </DataTrigger>
                                 </Style.Triggers>
-
                             </Style>
                         </ContentControl.Style>
                     </ContentControl>

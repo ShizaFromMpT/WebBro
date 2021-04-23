@@ -17,12 +17,10 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 using CefSharp;
+using CefSharp.Wpf;
 
 namespace DSA
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         new int TabIndex = 1;
@@ -32,10 +30,10 @@ namespace DSA
         {
             InitializeComponent();
 
+            this.WindowState = WindowState.Maximized;
             var tab1 = new TabVM()
             {
                 Header = $"Tab {TabIndex}",
-                //Content = new ContentVM("First tab", 1)
                 Content = new CefSharp.Wpf.ChromiumWebBrowser("https://mpt.ru")
             };
             Tabs.Add(tab1);
@@ -53,12 +51,20 @@ namespace DSA
 
         private void Button_Click_FullScreen(object sender, RoutedEventArgs e)
         {
-            this.WindowState = WindowState.Maximized;
+            if(this.WindowState == WindowState.Maximized)
+            {
+                this.WindowState = WindowState.Normal;
+            }else
+                this.WindowState = WindowState.Maximized;
         }
         private void Grid_Mouse(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                this.WindowState = WindowState.Normal;
                 DragMove();
+                
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -87,8 +93,7 @@ namespace DSA
             TabIndex++;
             tab.Header = $"Tab {TabIndex}";
             tab.IsPlaceholder = false;
-            //tab.Content = new ContentVM("Tab content", TabIndex);
-            tab.Content = new CefSharp.Wpf.ChromiumWebBrowser("https://duckduckgo.com");
+            tab.Content = new ChromiumWebBrowser("https://duckduckgo.com");
         }
 
         void AddNewPlusButton()
@@ -107,7 +112,7 @@ namespace DSA
             if (Tabs.Count > 2)
             {
                 var index = Tabs.IndexOf(tab);
-                if (index == Tabs.Count - 2)//last tab before [+]
+                if (index == Tabs.Count - 2)
                 {
                     MyTabControl.SelectedIndex--;
                 }
@@ -115,5 +120,65 @@ namespace DSA
             }
         }
 
+     
+
+        private void SearchTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+
+            if (e.Key == Key.Return)
+            {
+                TabIndex++;
+                   var tab1 = new TabVM()
+                {
+                    Header = $"Tab {TabIndex}",
+                    Content = new ChromiumWebBrowser(SearchTextBox.Text)
+                };
+                Tabs.Insert(Tabs.Count - 1, tab1);
+
+            }
+        }
+
+        private void Button_Click_Back(object sender, RoutedEventArgs e)
+        {
+            if (MyTabControl.SelectedItem != null)
+            {
+                TabVM tab = MyTabControl.SelectedItem as TabVM;
+                ChromiumWebBrowser w = tab.Content;
+                if (w.CanGoBack)
+                    w.Back();
+            }
+        }
+
+        private void Button_Click_Next(object sender, RoutedEventArgs e)
+        {
+            if (MyTabControl.SelectedItem != null)
+            {
+                TabVM tab = MyTabControl.SelectedItem as TabVM;
+                ChromiumWebBrowser w = tab.Content;
+                if (w.CanGoForward)
+                    w.Forward();
+            }
+        }
+
+        private void Button_Click_Update(object sender, RoutedEventArgs e)
+        {
+            if (MyTabControl.SelectedItem != null)
+            {
+                TabVM tab = MyTabControl.SelectedItem as TabVM;
+                ChromiumWebBrowser w = tab.Content;
+                w.Address = w.Address;
+          
+            }
+        }
+
+        private void Button_Click_GoHome(object sender, RoutedEventArgs e)
+        {
+            if (MyTabControl.SelectedItem != null)
+            {
+                TabVM tab = MyTabControl.SelectedItem as TabVM;
+                ChromiumWebBrowser w = tab.Content;
+                w.Address = "https://duckduckgo.com";
+            }
+        }
     }
 }

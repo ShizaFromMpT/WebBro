@@ -19,6 +19,9 @@ namespace DSA
             }
         }
 
+
+
+
         bool _IsPlaceholder = false;
         public bool IsPlaceholder
         {
@@ -30,18 +33,7 @@ namespace DSA
             }
         }
 
-        /*
-        ContentVM _Content = null;
-        public ContentVM Content
-        {
-            get => _Content;
-            set
-            {
-                _Content = value;
-                OnPropertyChanged();
-            }
-        }
-        */
+       
         CefSharp.Wpf.ChromiumWebBrowser _Content = null;
         public CefSharp.Wpf.ChromiumWebBrowser Content
         {
