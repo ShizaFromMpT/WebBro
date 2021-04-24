@@ -35,6 +35,24 @@
 
         <SolidColorBrush x:Key="Aurora_rad" Color="#BF616A" />
 
+
+
+        <ControlTemplate TargetType="Button" x:Key="ButtonTemplate2">
+            <Border  x:Name="buttonBorder" CornerRadius="0" BorderBrush="{DynamicResource Aurora_rad}" BorderThickness="1"
+                    Background="{DynamicResource PolarNight_4}">
+                <ContentPresenter RecognizesAccessKey="True" VerticalAlignment="Center"  HorizontalAlignment="Center"/>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsEnabled" Value="false">
+                    <Setter TargetName="buttonBorder" Property="TextBlock.Foreground" Value="{DynamicResource Aurora_rad}" />
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="true">
+                    <Setter TargetName="buttonBorder" Property="TextBlock.Foreground" Value="{DynamicResource Frost_1}" />
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+
+
         <ControlTemplate TargetType="Button" x:Key="ButtonTemplate">
             <Border  x:Name="buttonBorder"  BorderBrush="{DynamicResource PolarNight_4}" BorderThickness="2"
                     Background="{x:Null}">
@@ -96,7 +114,7 @@
             <Button Content="❯" Grid.Column="1" HorizontalAlignment="Left" Template="{StaticResource ButtonTemplate}" Width="35"   Click="Button_Click_Next"/>
             <Button Content="⭮" Grid.Column="2" HorizontalAlignment="Left" Template="{StaticResource ButtonTemplate}" Width="35" Click="Button_Click_Update" />
             <Button Content="⌂" Grid.Column="3" HorizontalAlignment="Left"  Template="{StaticResource ButtonTemplate}" Width="35" Click="Button_Click_GoHome"/>
-            <Button Content="≡" Grid.Column="5" HorizontalAlignment="Left" FontSize="20"  Width="35" Template="{StaticResource ButtonTemplate}"  />
+            <Button Content="≡" Grid.Column="5" HorizontalAlignment="Left" FontSize="20"  Width="35" Template="{StaticResource ButtonTemplate}" Click="Button_Click_History" />
             <Button Content="⚙" Grid.Column="6" HorizontalAlignment="Left"  Template="{StaticResource ButtonTemplate}" Width="35" />
 
 
@@ -167,6 +185,32 @@
                 </DataTemplate>
             </TabControl.ContentTemplate>
         </TabControl>
+
+
+        <StackPanel x:Name="StackPanelWithListHistory" Grid.Row="3" HorizontalAlignment="Right"  VerticalAlignment="Top" Margin="0,-3,-1,0">
+            <ListView MouseDoubleClick="ListHistory_MouseDoubleClick" x:Name="ListHistory" BorderBrush="{x:Null}"  Background="{DynamicResource PolarNight_4}" 
+                        ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                      ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                      >
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock  Foreground="{DynamicResource SnowStorm_1}" Width="500" Text="{Binding}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Vertical"/>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+            </ListView>
+
+            <Button Content="delete" Click="Button_Click_delete_item_history" HorizontalAlignment="Left"  Template="{DynamicResource ButtonTemplate2}" Width="500" />
+
+
+        </StackPanel>
 
 
 

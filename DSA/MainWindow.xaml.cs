@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,6 +14,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -25,25 +28,34 @@ namespace DSA
     {
         new int TabIndex = 1;
         ObservableCollection<TabVM> Tabs = new ObservableCollection<TabVM>();
+        ObservableCollection<string> history = new ObservableCollection<string>();
 
         public MainWindow()
         {
             InitializeComponent();
+            StackPanelWithListHistory.Width = 0;
+            if (!File.Exists(DataBase.FILE_HISTORY)) 
+                File.Create(DataBase.FILE_HISTORY);
 
+            DataBase.fillList(history, DataBase.FILE_HISTORY);
             this.WindowState = WindowState.Maximized;
             var tab1 = new TabVM()
             {
                 Header = $"Tab {TabIndex}",
-                Content = new CefSharp.Wpf.ChromiumWebBrowser("https://mpt.ru")
+                Content = new ChromiumWebBrowser("http://github.com")
             };
             Tabs.Add(tab1);
             AddNewPlusButton();
 
             MyTabControl.ItemsSource = Tabs;
             MyTabControl.SelectionChanged += MyTabControl_SelectionChanged;
-
+            ListHistory.ItemsSource = history;
         }
 
+
+       
+
+     
         private void Button_Click_SV(object sender, RoutedEventArgs e)
         {
             this.WindowState = WindowState.Minimized;
@@ -69,6 +81,7 @@ namespace DSA
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            DataBase.saveList(history, DataBase.FILE_HISTORY);
             Application.Current.Shutdown();
         }
 
@@ -124,17 +137,17 @@ namespace DSA
 
         private void SearchTextBox_KeyDown(object sender, KeyEventArgs e)
         {
-
             if (e.Key == Key.Return)
             {
                 TabIndex++;
-                   var tab1 = new TabVM()
+                var tab1 = new TabVM()
                 {
                     Header = $"Tab {TabIndex}",
                     Content = new ChromiumWebBrowser(SearchTextBox.Text)
                 };
+                history.Add(SearchTextBox.Text);
+               // DataBase.writeInFile(DataBase.FILE_HISTORY, SearchTextBox.Text + Environment.NewLine, FileMode.Append);
                 Tabs.Insert(Tabs.Count - 1, tab1);
-
             }
         }
 
@@ -179,6 +192,43 @@ namespace DSA
                 ChromiumWebBrowser w = tab.Content;
                 w.Address = "https://duckduckgo.com";
             }
+        }
+
+
+        private void Button_Click_History(object sender, RoutedEventArgs e)
+        {
+            DoubleAnimation animation = new DoubleAnimation();
+            animation.From = StackPanelWithListHistory.ActualWidth;
+            if (StackPanelWithListHistory.ActualWidth == 0)
+                animation.To = 500;
+            else
+                animation.To = 0;
+            animation.AccelerationRatio = 1;
+            animation.Duration = TimeSpan.FromSeconds(0.1);
+           // asd.Background = (SolidColorBrush) Application.Current.Resources["ColorBlack"];
+            StackPanelWithListHistory.BeginAnimation(StackPanel.WidthProperty, animation);
+        }
+
+        private void Button_Click_delete_item_history(object sender, RoutedEventArgs e)
+        {
+            if (ListHistory.SelectedItem != null)
+                history.Remove(ListHistory.SelectedItem as string);
+        }
+
+        private void ListHistory_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (ListHistory.SelectedItem != null)
+            {
+                TabIndex++;
+                var tab1 = new TabVM()
+                {
+                    Header = $"Tab {TabIndex}",
+                    Content = new ChromiumWebBrowser(ListHistory.SelectedItem as string)
+                };
+            
+                Tabs.Insert(Tabs.Count - 1, tab1);
+            }
+                
         }
     }
 }
