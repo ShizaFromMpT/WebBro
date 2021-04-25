@@ -9,6 +9,7 @@ namespace DSA
     class DataBase
     {
         public static string FILE_HISTORY = "history";
+        public static string FILE_FAVORITES = "favorites";
 
 
 
@@ -18,7 +19,7 @@ namespace DSA
             StreamReader f = new StreamReader(path);
             while (!f.EndOfStream)
             {
-                 s += f.ReadLine();
+                s += f.ReadLine();
             }
             f.Close();
             return s;
@@ -37,7 +38,7 @@ namespace DSA
         public static void saveList(ObservableCollection<string> list, string path)
         {
             StreamWriter f = new StreamWriter(path);
-            for(int i = 0; i<list.Count; i++)
+            for (int i = 0; i < list.Count; i++)
             {
                 f.WriteLine(list[i]);
             }

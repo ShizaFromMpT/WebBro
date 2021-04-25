@@ -40,7 +40,7 @@
 
 
         <ControlTemplate TargetType="Button" x:Key="ButtonTemplate2">
-            <Border  x:Name="buttonBorder" CornerRadius="0" BorderBrush="{DynamicResource Aurora_rad}" BorderThickness="1"
+            <Border  x:Name="buttonBorder"  
                     Background="{DynamicResource PolarNight_4}">
                 <ContentPresenter RecognizesAccessKey="True" VerticalAlignment="Center"  HorizontalAlignment="Center"/>
             </Border>
@@ -65,10 +65,10 @@
                                   TextBlock.FontWeight="Bold"
                                 />
             </Border>
-            
-            
+
+
             <ControlTemplate.Triggers>
-               
+
                 <Trigger Property="IsMouseOver" Value="false">
                     <Setter Property="Button.Foreground" Value="{DynamicResource PolarNight_4}" />
                 </Trigger>
@@ -80,7 +80,6 @@
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
-
 
     </Window.Resources>
 
@@ -96,7 +95,7 @@
               Grid.ColumnSpan="5"
               MouseDown="Grid_Mouse"
               >
-            <Button Content="🞄"  FontSize="59"  Width="25" Height="25" HorizontalAlignment="Right" VerticalAlignment="Center" Foreground="#FFFB5C5C" Background="{x:Null}" BorderBrush="{x:Null}" Click="Button_Click" Padding="0,-30,0,0" />
+            <Button Content="🞄"   FontSize="59" Width="25" Height="25" HorizontalAlignment="Right" VerticalAlignment="Center" Foreground="#FFFB5C5C" Background="{x:Null}" BorderBrush="{x:Null}" Click="Button_Click_shdo"  Padding="0,-31,0,0" />
             <Button Content="🞄"  FontSize="59" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,25,0"   Width="25" Height="25" Foreground="#FF5CD1FB" Background="{x:Null}" BorderBrush="{x:Null}" Click="Button_Click_FullScreen"   Padding="0,-30,0,0"  />
             <Button Content="🞄"  FontSize="59" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,50,0"   Width="25" Height="25" Foreground="#FFFFC850" Background="{x:Null}" BorderBrush="{x:Null}" Click="Button_Click_SV"   Padding="0,-30,0,0"  />
         </Grid>
@@ -110,16 +109,18 @@
                 <ColumnDefinition/>
                 <ColumnDefinition Width="35"/>
                 <ColumnDefinition Width="35"/>
+                <ColumnDefinition Width="35"/>
+                <ColumnDefinition Width="35"/>
             </Grid.ColumnDefinitions>
             <TextBox x:Name="SearchTextBox" KeyDown="SearchTextBox_KeyDown" BorderThickness="2" Background="{x:Null}" BorderBrush="{DynamicResource PolarNight_4 }" Grid.Column="4" Text="{Binding Path=Sourse}" Height="30" Grid.Row="1"/>
             <Button Content="❮" HorizontalAlignment="Center" Template="{StaticResource ButtonTemplate}" Width="35"  Click="Button_Click_Back" />
             <Button Content="❯" Grid.Column="1" HorizontalAlignment="Left" Template="{StaticResource ButtonTemplate}" Width="35"   Click="Button_Click_Next"/>
             <Button Content="⭮" Grid.Column="2" HorizontalAlignment="Left" Template="{StaticResource ButtonTemplate}" Width="35" Click="Button_Click_Update" />
             <Button Content="⌂" Grid.Column="3" HorizontalAlignment="Left"  Template="{StaticResource ButtonTemplate}" Width="35" Click="Button_Click_GoHome"/>
-            <Button Content="≡" Grid.Column="5" HorizontalAlignment="Left" FontSize="20"  Width="35" Template="{StaticResource ButtonTemplate}" Click="Button_Click_History" />
-            <Button Content="⚙" Grid.Column="6" HorizontalAlignment="Left"  Template="{StaticResource ButtonTemplate}" Width="35" />
-
-
+            <Button Content="🡇" Grid.Column="5" HorizontalAlignment="Left"  Template="{StaticResource ButtonTemplate}" Width="35" />
+            <Button Content="★" Grid.Column="6" HorizontalAlignment="Left"  Template="{StaticResource ButtonTemplate}" Width="35" Click="Button_Click_Add_Favorites"/>
+            <Button Content="≡" Grid.Column="7" HorizontalAlignment="Left" FontSize="20"  Width="35" Template="{StaticResource ButtonTemplate}" Click="Button_Click_History" />
+            <Button Content="⚙" Grid.Column="8" HorizontalAlignment="Left"  Template="{StaticResource ButtonTemplate}" Width="35" Click="Button_Click_Settings" />
         </Grid>
 
 
@@ -189,9 +190,28 @@
         </TabControl>
 
 
-        <StackPanel x:Name="StackPanelWithListHistory" Grid.Row="3" HorizontalAlignment="Right"  VerticalAlignment="Top" Margin="0,-3,-1,0">
-            <ListView MouseDoubleClick="ListHistory_MouseDoubleClick" x:Name="ListHistory" BorderBrush="{x:Null}"  Background="{DynamicResource PolarNight_4}" 
-                        ScrollViewer.VerticalScrollBarVisibility="Hidden"
+        <Grid x:Name="GridWithLists" Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Top" >
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="26"/>
+                <RowDefinition/>
+                <RowDefinition Height="26"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Label Content="★ History" Background="{DynamicResource PolarNight_4}"  Foreground="{DynamicResource Frost_1}" />
+                <Button Content="delete" Click="Button_Click_delete_item_history" HorizontalAlignment="Center"  Template="{DynamicResource ButtonTemplate2}" Grid.Column="1" Width="80"/>
+                <Button Content="delete All" Click="Button_Click_delete_item_history_All" HorizontalAlignment="Center"  Template="{DynamicResource ButtonTemplate2}"  Grid.Column="2" Width="210"/>
+            </Grid>
+
+
+            <ListView MouseDoubleClick="List_MouseDoubleClick" x:Name="ListHistory" BorderBrush="{DynamicResource PolarNight_4}" Grid.Row="1"  Background="{DynamicResource PolarNight_4}" 
                       ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                       >
                 <ListView.ItemTemplate>
@@ -209,10 +229,62 @@
                 </ListView.ItemsPanel>
             </ListView>
 
-            <Button Content="delete" Click="Button_Click_delete_item_history" HorizontalAlignment="Left"  Template="{DynamicResource ButtonTemplate2}" Width="500" />
 
-        </StackPanel>
 
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Label Content="≡ Favoites" Background="{DynamicResource PolarNight_4}"  Foreground="{DynamicResource Frost_1}" />
+                <Button Content="delete"  HorizontalAlignment="Center"  Template="{DynamicResource ButtonTemplate2}" Grid.Column="1" Width="80" Click="Button_Click_2" />
+                <Button Content="delete All" HorizontalAlignment="Center"  Template="{DynamicResource ButtonTemplate2}"  Grid.Column="2" Width="210" Click="Button_Click_1"/>
+            </Grid>
+
+
+            <ListView MouseDoubleClick="List_MouseDoubleClick" x:Name="ListFavorites" BorderBrush="{DynamicResource PolarNight_4}" Grid.Row="3"   Background="{DynamicResource PolarNight_4}" 
+                      ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                     
+                      >
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock  Foreground="{DynamicResource SnowStorm_1}" Width="500" Text="{Binding}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Vertical"/>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+            </ListView>
+        </Grid>
+
+        <Grid  x:Name="GridWithSettings" Grid.Row="3" HorizontalAlignment="Right" Background="{DynamicResource PolarNight_4}"  VerticalAlignment="Top" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Label Content="Settings" FontSize="23"  Foreground="{DynamicResource Frost_3}" />
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="40"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Content="Incognito mode:"  VerticalAlignment="Center" Foreground="{DynamicResource Frost_1}" />
+                <CheckBox  Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,20,0" Background="{DynamicResource Frost_1}" BorderBrush="{DynamicResource Frost_1}"  VerticalAlignment="Center"/>
+
+            </Grid>
+
+
+        </Grid>
 
 
 
