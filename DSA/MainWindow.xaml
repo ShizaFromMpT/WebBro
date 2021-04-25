@@ -208,7 +208,7 @@
             </ListView>
 
             <Button Content="delete" Click="Button_Click_delete_item_history" HorizontalAlignment="Left"  Template="{DynamicResource ButtonTemplate2}" Width="500" />
-
+            
 
         </StackPanel>
 

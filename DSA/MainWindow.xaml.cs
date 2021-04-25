@@ -104,9 +104,11 @@ namespace DSA
         {
             //Do things to make it a new tab.
             TabIndex++;
-            tab.Header = $"Tab {TabIndex}";
+            //tab.Header = $"Tab {TabIndex}";
             tab.IsPlaceholder = false;
             tab.Content = new ChromiumWebBrowser("https://duckduckgo.com");
+            MessageBox.Show(tab.Content.Title);
+            tab.Header = tab.Content.Title;
         }
 
         void AddNewPlusButton()
@@ -137,17 +139,10 @@ namespace DSA
 
         private void SearchTextBox_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Return)
+            if (MyTabControl.SelectedItem != null)
             {
-                TabIndex++;
-                var tab1 = new TabVM()
-                {
-                    Header = $"Tab {TabIndex}",
-                    Content = new ChromiumWebBrowser(SearchTextBox.Text)
-                };
-                history.Add(SearchTextBox.Text);
-               // DataBase.writeInFile(DataBase.FILE_HISTORY, SearchTextBox.Text + Environment.NewLine, FileMode.Append);
-                Tabs.Insert(Tabs.Count - 1, tab1);
+                (MyTabControl.SelectedItem as TabVM).Content.Address = SearchTextBox.Text;
+                (MyTabControl.SelectedItem as TabVM).Header = (MyTabControl.SelectedItem as TabVM).Content.Title;
             }
         }
 
