@@ -33,8 +33,8 @@ namespace DSA
             }
         }
 
-       
-        CefSharp.Wpf.ChromiumWebBrowser _Content = null;
+       public CefSharp.Wpf.ChromiumWebBrowser Content { get; set; }
+       /* CefSharp.Wpf.ChromiumWebBrowser _Content = null;
         public CefSharp.Wpf.ChromiumWebBrowser Content
         {
             get => _Content;
@@ -43,7 +43,7 @@ namespace DSA
                 _Content = value;
                 OnPropertyChanged();
             }
-        }
+        }*/
 
         public event PropertyChangedEventHandler PropertyChanged;
         void OnPropertyChanged([CallerMemberName] string property = "")

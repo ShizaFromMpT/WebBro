@@ -39,11 +39,13 @@ namespace DSA
 
             DataBase.fillList(history, DataBase.FILE_HISTORY);
             this.WindowState = WindowState.Maximized;
-            var tab1 = new TabVM()
-            {
-                Header = $"Tab {TabIndex}",
-                Content = new ChromiumWebBrowser("http://github.com")
-            };
+            var tab1 = new TabVM();
+
+            tab1.Content = new ChromiumWebBrowser("https://github.com");
+            tab1.Header = tab1.Content.Title;
+            tab1.Content.TitleChanged += ChromiumWebBrowser_TitleChanged;
+
+
             Tabs.Add(tab1);
             AddNewPlusButton();
 
@@ -224,6 +226,12 @@ namespace DSA
                 Tabs.Insert(Tabs.Count - 1, tab1);
             }
                 
+        }
+
+        private void ChromiumWebBrowser_TitleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (MyTabControl.SelectedIndex != -1)
+                Tabs[MyTabControl.SelectedIndex].Header = (sender as ChromiumWebBrowser).Title;
         }
     }
 }
