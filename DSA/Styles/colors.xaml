@@ -1,0 +1,33 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+
+    <SolidColorBrush x:Key="colorWhite" Color="White" />
+    <SolidColorBrush x:Key="coloLiterWhite" Color="#FFCBCBCB" />
+    <SolidColorBrush x:Key="ColorGreat" Color="#FF171717" />
+    <SolidColorBrush x:Key="ColorExtraGreat" Color="#FF0B0B0B" />
+    <SolidColorBrush x:Key="ColorBlack" Color="Black" />
+    <SolidColorBrush x:Key="Aurora_rad" Color="#BF616A" />
+
+    <SolidColorBrush x:Key="PolarNight_4" Color="#2E3440" />
+    <SolidColorBrush x:Key="PolarNight_3" Color="#3B4252" />
+    <SolidColorBrush x:Key="PolarNight_2" Color="#434C5E" />
+    <SolidColorBrush x:Key="PolarNight_1" Color="#4C566A" />
+
+    <SolidColorBrush x:Key="Frost_4" Color="#5E81AC" />
+    <SolidColorBrush x:Key="Frost_3" Color="#81A1C1" />
+    <SolidColorBrush x:Key="Frost_2" Color="#88C0D0" />
+    <SolidColorBrush x:Key="Frost_1" Color="#8FBCBB" />
+
+    <SolidColorBrush x:Key="SnowStorm_3" Color="#D8DEE9" />
+    <SolidColorBrush x:Key="SnowStorm_2" Color="#E5E9F0" />
+    <SolidColorBrush x:Key="SnowStorm_1" Color="#ECEFF4" />
+    
+    
+    
+    
+    
+
+   
+
+</ResourceDictionary>

@@ -116,6 +116,13 @@ namespace DSA
             }
         }
 
+        public void testStyel()
+        {
+            
+
+            ButtonDownload.Style = (Style)FindResource("ButonDarkStyle2");
+        }
+
 
         void ConvertPlusToNewTab(TabVM tab)
         {
@@ -317,6 +324,11 @@ namespace DSA
         {
             if (MyTabControl.SelectedIndex != -1)
                 Tabs[MyTabControl.SelectedIndex].Header = (sender as ChromiumWebBrowser).Title;
+        }
+
+        private void ButtonDownload_Click(object sender, RoutedEventArgs e)
+        {
+            testStyel();
         }
     }
 }

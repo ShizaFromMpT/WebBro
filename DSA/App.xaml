@@ -4,6 +4,17 @@
              xmlns:local="clr-namespace:DSA"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary>
+                    <ResourceDictionary.MergedDictionaries>
+                        <ResourceDictionary Source="Styles/DarkStyle.xaml" />
+                        <ResourceDictionary Source="Styles/Nord.xaml"/>
+                        <ResourceDictionary Source="Styles/colors.xaml"/>
+
+                    </ResourceDictionary.MergedDictionaries>
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>         
     </Application.Resources>
 </Application>

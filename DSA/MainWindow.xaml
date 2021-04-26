@@ -12,86 +12,15 @@
         AllowsTransparency="True"
         Title="MainWindow" Height="800" Width="1200" BorderBrush="{x:Null}" >
 
-    <Window.Resources>
 
-        <SolidColorBrush x:Key="colorWhite" Color="White" />
-        <SolidColorBrush x:Key="coloLiterWhite" Color="#FFCBCBCB" />
-        <SolidColorBrush x:Key="ColorGreat" Color="#FF171717" />
-        <SolidColorBrush x:Key="ColorExtraGreat" Color="#FF0B0B0B" />
-        <SolidColorBrush x:Key="ColorBlack" Color="Black" />
-
-        <SolidColorBrush x:Key="PolarNight_4" Color="#2E3440" />
-        <SolidColorBrush x:Key="PolarNight_3" Color="#3B4252" />
-        <SolidColorBrush x:Key="PolarNight_2" Color="#434C5E" />
-        <SolidColorBrush x:Key="PolarNight_1" Color="#4C566A" />
-
-        <SolidColorBrush x:Key="Frost_4" Color="#5E81AC" />
-        <SolidColorBrush x:Key="Frost_3" Color="#81A1C1" />
-        <SolidColorBrush x:Key="Frost_2" Color="#88C0D0" />
-        <SolidColorBrush x:Key="Frost_1" Color="#8FBCBB" />
-
-        <SolidColorBrush x:Key="SnowStorm_3" Color="#D8DEE9" />
-        <SolidColorBrush x:Key="SnowStorm_2" Color="#E5E9F0" />
-        <SolidColorBrush x:Key="SnowStorm_1" Color="#ECEFF4" />
-
-
-        <SolidColorBrush x:Key="Aurora_rad" Color="#BF616A" />
-
-
-
-        <ControlTemplate TargetType="Button" x:Key="ButtonTemplate2">
-            <Border  x:Name="buttonBorder"  
-                    Background="{DynamicResource PolarNight_4}">
-                <ContentPresenter RecognizesAccessKey="True" VerticalAlignment="Center"  HorizontalAlignment="Center"/>
-            </Border>
-            <ControlTemplate.Triggers>
-                <Trigger Property="IsEnabled" Value="false">
-                    <Setter TargetName="buttonBorder" Property="TextBlock.Foreground" Value="{DynamicResource Aurora_rad}" />
-                </Trigger>
-                <Trigger Property="IsEnabled" Value="true">
-                    <Setter TargetName="buttonBorder" Property="TextBlock.Foreground" Value="{DynamicResource Frost_1}" />
-                </Trigger>
-            </ControlTemplate.Triggers>
-        </ControlTemplate>
-
-
-        <ControlTemplate TargetType="Button" x:Key="ButtonTemplate">
-            <Border  x:Name="buttonBorder"  BorderBrush="{DynamicResource PolarNight_4}" BorderThickness="2"
-                    Background="{x:Null}">
-                <ContentPresenter RecognizesAccessKey="True" 
-                                  VerticalAlignment="Center"   
-                                  HorizontalAlignment="Center" 
-                                  TextBlock.FontSize="15"
-                                  TextBlock.FontWeight="Bold"
-                                />
-            </Border>
-
-
-            <ControlTemplate.Triggers>
-
-                <Trigger Property="IsMouseOver" Value="false">
-                    <Setter Property="Button.Foreground" Value="{DynamicResource PolarNight_4}" />
-                </Trigger>
-                <Trigger Property="IsMouseOver" Value="true">
-                    <Setter Property="Button.Foreground" Value="{DynamicResource PolarNight_4}" />
-                </Trigger>
-                <Trigger Property="IsPressed" Value="true">
-                    <Setter Property="Button.Foreground" Value="{DynamicResource Frost_1}" />
-                </Trigger>
-            </ControlTemplate.Triggers>
-        </ControlTemplate>
-
-    </Window.Resources>
-
-    <Grid  Background="{DynamicResource PolarNight_1}">
+    <Grid  Style="{DynamicResource GridBackgroundNord}">
         <Grid.RowDefinitions>
             <RowDefinition Height="25"/>
             <RowDefinition Height="30"/>
-
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <Grid Background="{DynamicResource PolarNight_4}" 
+        <Grid Style="{DynamicResource GridTopNord}" 
               Grid.ColumnSpan="5"
               MouseDown="Grid_Mouse"
               >
@@ -113,18 +42,18 @@
                 <ColumnDefinition Width="35"/>
             </Grid.ColumnDefinitions>
             <TextBox x:Name="SearchTextBox" KeyDown="SearchTextBox_KeyDown" BorderThickness="2" Background="{x:Null}" BorderBrush="{DynamicResource PolarNight_4 }" Grid.Column="4" Text="{Binding Path=Sourse}" Height="30" Grid.Row="1"/>
-            <Button Content="❮" HorizontalAlignment="Center" Template="{StaticResource ButtonTemplate}" Width="35"  Click="Button_Click_Back" />
-            <Button Content="❯" Grid.Column="1" HorizontalAlignment="Left" Template="{StaticResource ButtonTemplate}" Width="35"   Click="Button_Click_Next"/>
-            <Button Content="⭮" Grid.Column="2" HorizontalAlignment="Left" Template="{StaticResource ButtonTemplate}" Width="35" Click="Button_Click_Update" />
-            <Button Content="⌂" Grid.Column="3" HorizontalAlignment="Left"  Template="{StaticResource ButtonTemplate}" Width="35" Click="Button_Click_GoHome"/>
-            <Button Content="🡇" Grid.Column="5" HorizontalAlignment="Left"  Template="{StaticResource ButtonTemplate}" Width="35" />
-            <Button Content="★" Grid.Column="6" HorizontalAlignment="Left"  Template="{StaticResource ButtonTemplate}" Width="35" Click="Button_Click_Add_Favorites"/>
-            <Button Content="≡" Grid.Column="7" HorizontalAlignment="Left" FontSize="20"  Width="35" Template="{StaticResource ButtonTemplate}" Click="Button_Click_History" />
-            <Button Content="⚙" Grid.Column="8" HorizontalAlignment="Left"  Template="{StaticResource ButtonTemplate}" Width="35" Click="Button_Click_Settings" />
+            <Button Content="❮" Style="{DynamicResource ButonDarkStyleNord}" Width="35"  Click="Button_Click_Back" Height="30" />
+            <Button Content="❯" Grid.Column="1" Style="{DynamicResource ButonDarkStyleNord}" Width="35"   Click="Button_Click_Next" Height="30"/>
+            <Button Content="⭮" Grid.Column="2" Style="{DynamicResource ButonDarkStyleNord}" Width="35" Click="Button_Click_Update" Height="30" />
+            <Button Content="⌂" Grid.Column="3"  Style="{DynamicResource ButonDarkStyleNord}" Width="35" Click="Button_Click_GoHome" Height="30"/>
+            <Button x:Name="ButtonDownload" Content="🡇" Grid.Column="5" Style="{DynamicResource ButonDarkStyleNord}" Width="35" Height="30" Click="ButtonDownload_Click" />
+            <Button Content="★" Grid.Column="6"  Style="{DynamicResource ButonDarkStyleNord}" Width="35" Click="Button_Click_Add_Favorites" Height="30"/>
+            <Button Content="≡" Grid.Column="7" Style="{DynamicResource ButonDarkStyleNord}" FontSize="20"  Width="35"  Click="Button_Click_History" Height="30" />
+            <Button Content="⚙" Grid.Column="8"  Style="{DynamicResource ButonDarkStyleNord}" Width="35" Click="Button_Click_Settings" Height="30" />
         </Grid>
 
 
-        <TabControl  x:Name="MyTabControl"  Grid.Row="3" Background="{DynamicResource Frost_3}">
+        <TabControl  x:Name="MyTabControl"  Grid.Row="3" Style="{DynamicResource TabControlStyleNord}">
             <TabControl.ItemTemplate>
                 <DataTemplate>
                     <Grid Background="{x:Null}">
@@ -190,7 +119,9 @@
         </TabControl>
 
 
-        <Grid x:Name="GridWithLists" Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Top" >
+        <Grid x:Name="GridWithLists" Grid.Row="3" HorizontalAlignment="Right" 
+              Style="{DynamicResource GridListNord}"
+              VerticalAlignment="Top" >
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="26"/>
@@ -205,19 +136,23 @@
                     <ColumnDefinition Width="80"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Label Content="★ History" Background="{DynamicResource PolarNight_4}"  Foreground="{DynamicResource Frost_1}" />
-                <Button Content="delete" Click="Button_Click_delete_item_history" HorizontalAlignment="Center"  Template="{DynamicResource ButtonTemplate2}" Grid.Column="1" Width="80"/>
-                <Button Content="delete All" Click="Button_Click_delete_item_history_All" HorizontalAlignment="Center"  Template="{DynamicResource ButtonTemplate2}"  Grid.Column="2" Width="210"/>
+                <Label Content="★ History" Style="{DynamicResource LabelStyleNord}" />
+                <Button Content="delete" Click="Button_Click_delete_item_history"  
+                        Style="{DynamicResource ButonDarkStyle2Nord}" Grid.Column="1" Width="80" Height="26"/>
+                <Button Content="delete All" Click="Button_Click_delete_item_history_All"   
+                        Style="{DynamicResource ButonDarkStyle2Nord}"  Grid.Column="2" Width="210" Height="26"/>
             </Grid>
 
 
-            <ListView MouseDoubleClick="List_MouseDoubleClick" x:Name="ListHistory" BorderBrush="{DynamicResource PolarNight_4}" Grid.Row="1"  Background="{DynamicResource PolarNight_4}" 
+            <ListView MouseDoubleClick="List_MouseDoubleClick" x:Name="ListHistory" 
+                      BorderBrush="{x:Null}" Grid.Row="1"  
+                      Background="{x:Null}" 
                       ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                       >
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel>
-                            <TextBlock  Foreground="{DynamicResource SnowStorm_1}" Width="500" Text="{Binding}"/>
+                            <TextBlock  Style="{DynamicResource TextBlockStyleNord}" Width="500" Text="{Binding}"/>
                         </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
@@ -237,20 +172,25 @@
                     <ColumnDefinition Width="80"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Label Content="≡ Favoites" Background="{DynamicResource PolarNight_4}"  Foreground="{DynamicResource Frost_1}" />
-                <Button Content="delete"  HorizontalAlignment="Center"  Template="{DynamicResource ButtonTemplate2}" Grid.Column="1" Width="80" Click="Button_Click_2" />
-                <Button Content="delete All" HorizontalAlignment="Center"  Template="{DynamicResource ButtonTemplate2}"  Grid.Column="2" Width="210" Click="Button_Click_1"/>
+                <Label Content="≡ Favoites" Style="{DynamicResource LabelStyleNord}"/>
+                <Button Content="delete"  Style="{DynamicResource ButonDarkStyle2Nord}" 
+                        Grid.Column="1" Width="80" Click="Button_Click_2" Height="26" />
+                <Button Content="delete All"  Style="{DynamicResource ButonDarkStyle2Nord}"  
+                        Grid.Column="2" Width="210" Click="Button_Click_1" Height="26"/>
             </Grid>
 
 
-            <ListView MouseDoubleClick="List_MouseDoubleClick" x:Name="ListFavorites" BorderBrush="{DynamicResource PolarNight_4}" Grid.Row="3"   Background="{DynamicResource PolarNight_4}" 
-                      ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                     
-                      >
+            <ListView 
+                MouseDoubleClick="List_MouseDoubleClick" 
+                x:Name="ListFavorites" 
+                BorderBrush="{x:Null}"
+                Grid.Row="3"   
+                Background="{x:Null}" 
+                ScrollViewer.HorizontalScrollBarVisibility="Hidden">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel>
-                            <TextBlock  Foreground="{DynamicResource SnowStorm_1}" Width="500" Text="{Binding}"/>
+                            <TextBlock Style="{DynamicResource TextBlockStyleNord}"  Width="500" Text="{Binding}"/>
                         </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
@@ -263,14 +203,21 @@
             </ListView>
         </Grid>
 
-        <Grid  x:Name="GridWithSettings" Grid.Row="3" HorizontalAlignment="Right" Background="{DynamicResource PolarNight_4}"  VerticalAlignment="Top" >
+        <Grid  
+            x:Name="GridWithSettings" 
+            Grid.Row="3" 
+            HorizontalAlignment="Right" 
+            Visibility="Visible" 
+            Style="{DynamicResource GridListNord}"
+            VerticalAlignment="Top" >
+            
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="30"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <Label Content="Settings" FontSize="23"  Foreground="{DynamicResource Frost_3}" />
+            <Label Content="Settings" FontSize="23" Style="{DynamicResource LabelStyleNord}" />
 
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
@@ -278,15 +225,15 @@
                     <ColumnDefinition Width="40"/>
                 </Grid.ColumnDefinitions>
 
-                <Label Content="Incognito mode:"  VerticalAlignment="Center" Foreground="{DynamicResource Frost_1}" />
-                <CheckBox  Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,20,0" Background="{DynamicResource Frost_1}" BorderBrush="{DynamicResource Frost_1}"  VerticalAlignment="Center"/>
+                <Label Content="Incognito mode:"  
+                       VerticalAlignment="Center" 
+                       Style="{DynamicResource LabelStyleNord}" />
+                <CheckBox  Grid.Column="1" HorizontalAlignment="Right" 
+                           Margin="0,0,20,0" 
+                          Style="{DynamicResource CheckboxStyleNord}"
+                           VerticalAlignment="Center"/>
 
             </Grid>
-
-
         </Grid>
-
-
-
     </Grid>
 </Window>
