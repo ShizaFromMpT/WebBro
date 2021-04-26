@@ -3,9 +3,7 @@
 
 
     <SolidColorBrush x:Key="colorWhite" Color="White" />
-    <SolidColorBrush x:Key="coloLiterWhite" Color="#FFCBCBCB" />
-    <SolidColorBrush x:Key="ColorGreat" Color="#FF171717" />
-    <SolidColorBrush x:Key="ColorExtraGreat" Color="#FF0B0B0B" />
+    <SolidColorBrush x:Key="coloLiterWhite" Color="#FFCBCBCB"/>
     <SolidColorBrush x:Key="ColorBlack" Color="Black" />
     <SolidColorBrush x:Key="Aurora_rad" Color="#BF616A" />
 
@@ -22,12 +20,17 @@
     <SolidColorBrush x:Key="SnowStorm_3" Color="#D8DEE9" />
     <SolidColorBrush x:Key="SnowStorm_2" Color="#E5E9F0" />
     <SolidColorBrush x:Key="SnowStorm_1" Color="#ECEFF4" />
-    
-    
-    
-    
-    
 
-   
+
+    <SolidColorBrush x:Key="Great3" Color="#FF000000"/>
+    <SolidColorBrush x:Key="Great2" Color="#FF191919"/>
+    <SolidColorBrush x:Key="Great1" Color="#FF606060"/>
+
+    <SolidColorBrush x:Key="Light3" Color="#FFEEE2DC"/>
+    <SolidColorBrush x:Key="Light2" Color="#FFEDC7B7"/>
+    <SolidColorBrush x:Key="Light1" Color="White"/>
+
+
+
 
 </ResourceDictionary>

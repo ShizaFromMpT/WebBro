@@ -31,6 +31,54 @@ namespace DSA
         ObservableCollection<string> history = new ObservableCollection<string>();
         ObservableCollection<string> favorites = new ObservableCollection<string>();
 
+        public static List<string> list_themeNord = new List<string>
+        {
+            "GridBackgroundNord",    //0
+            "GridTopNord",           //1
+            "TextBoxStyleNord",      //2
+            "ButonStyleNord",        //3
+            "TabControlStyleNord",   //4
+            "GridListNord",          //5
+            "LabelStyleNord",        //6
+            "ButonStyle2Nord",       //7
+            "TextBlockStyleNord",    //8
+            "CheckboxStyleNord",     //9
+            "RadioButtonStyleNord"      //10
+        };
+
+
+        public static List<string> list_themeDark = new List<string>
+        {
+            "GridBackgroundDark",    //0
+            "GridTopDark",           //1
+            "TextBoxStyleDark",      //2
+            "ButonStyleDark",        //3
+            "TabControlStyleDark",   //4
+            "GridListDark",          //5
+            "LabelStyleDark",        //6
+            "ButonStyle2Dark",       //7
+            "TextBlockStyleDark",    //8
+            "CheckboxStyleDark",     //9
+            "RadioButtonStyleDark"      //10
+        };
+
+
+        public static List<string> list_themeLight = new List<string>
+        {
+            "GridBackgroundLight",    //0
+            "GridTopLight",           //1
+            "TextBoxStyleLight",      //2
+            "ButonStyleLight",        //3
+            "TabControlStyleLight",   //4
+            "GridListLight",          //5
+            "LabelStyleLight",        //6
+            "ButonStyle2Light",       //7
+            "TextBlockStyleLight",    //8
+            "CheckboxStyleLight",     //9
+            "RadioButtonStyleLight"      //10
+        };
+
+
         public MainWindow()
         {
             InitializeComponent();
@@ -116,12 +164,7 @@ namespace DSA
             }
         }
 
-        public void testStyel()
-        {
-            
-
-            ButtonDownload.Style = (Style)FindResource("ButonDarkStyle2");
-        }
+       
 
 
         void ConvertPlusToNewTab(TabVM tab)
@@ -295,13 +338,18 @@ namespace DSA
 
         private void Button_Click_Add_Favorites(object sender, RoutedEventArgs e)
         {
-            if (MyTabControl.SelectedItem != null)
+            try
             {
-                TabVM tab = MyTabControl.SelectedItem as TabVM;
-                ChromiumWebBrowser w = tab.Content;
-                if (!favorites.Any(str2 => str2 == w.Address.ToString()))
-                    favorites.Add(w.Address.ToString());
+                if (MyTabControl.SelectedItem != null)
+                {
+                    TabVM tab = MyTabControl.SelectedItem as TabVM;
+                    ChromiumWebBrowser w = tab.Content;
+                    if (!favorites.Any(str2 => str2 == w.Address.ToString()))
+                        favorites.Add(w.Address.ToString());
+                }
             }
+            catch (Exception e2) { }
+          
         }
 
         private void Button_Click_delete_item_history_All(object sender, RoutedEventArgs e)
@@ -328,7 +376,75 @@ namespace DSA
 
         private void ButtonDownload_Click(object sender, RoutedEventArgs e)
         {
-            testStyel();
+           
         }
+
+        private void Button_Click_Apply_Theme(object sender, RoutedEventArgs e)
+        {
+            if (RadioButLightTheme.IsChecked == true)
+            {
+                 setStile(list_themeLight);
+            }
+            else if (RadioButDarkTheme.IsChecked == true)
+            {
+                setStile(list_themeDark);
+            }
+            else if (RadioButNordTheme.IsChecked == true)
+            {
+                setStile(list_themeNord);
+
+            }
+
+        }
+
+       
+
+        public void setStile(List<string> styles)
+        {
+            GridBackGround.Style = (Style)FindResource(styles[0]);
+            GridTop.Style = (Style)FindResource(styles[1]);
+            SearchTextBox.Style = (Style)FindResource(styles[2]);
+
+            
+
+            ButtonBack.Style = (Style)FindResource(styles[3]);
+            ButtonForvard.Style = (Style)FindResource(styles[3]);
+            ButtonReload.Style = (Style)FindResource(styles[3]);
+            ButtonHome.Style = (Style)FindResource(styles[3]);
+            ButtonDownload.Style = (Style)FindResource(styles[3]);
+            ButtonFavorite.Style = (Style)FindResource(styles[3]);
+            ButtonLists.Style = (Style)FindResource(styles[3]);
+            ButtonSettings.Style = (Style)FindResource(styles[3]);
+
+            MyTabControl.Style = (Style)FindResource(styles[4]);
+
+            GridWithLists.Style = (Style)FindResource(styles[5]);
+
+            LabelHistory.Style = (Style)FindResource(styles[6]);
+            Button_deleteAll_History.Style = (Style)FindResource(styles[7]);
+            Button_delete_History.Style = (Style)FindResource(styles[7]);
+
+            LabelFavorites.Style = (Style)FindResource(styles[6]);
+            Button_delete_Favorites.Style = (Style)FindResource(styles[7]);
+            Button_deleteAll_Favorites.Style = (Style)FindResource(styles[7]);
+
+            GridWithSettings.Style = (Style)FindResource(styles[5]);
+            Label_Settings.Style = (Style)FindResource(styles[6]);
+
+            Label_IncognitoMode.Style = (Style)FindResource(styles[6]);
+            CheckBoxIncognito.Style = (Style)FindResource(styles[9]);
+            LabelThemes.Style = (Style)FindResource(styles[6]);
+            Button_Apply_Theme.Style = (Style)FindResource(styles[7]);
+
+
+            RadioButLightTheme.Style = (Style)FindResource(styles[10]);
+            RadioButDarkTheme.Style = (Style)FindResource(styles[10]);
+            RadioButNordTheme.Style = (Style)FindResource(styles[10]);
+
+        }
+
+
+
+
     }
 }

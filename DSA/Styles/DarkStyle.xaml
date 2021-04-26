@@ -3,5 +3,127 @@
 
 
 
+    <ControlTemplate TargetType="Button" x:Key="ButtonTemplateDark">
+        <Border 
+            x:Name="buttonBorder"  
+            BorderBrush="{DynamicResource Great3}" 
+            BorderThickness="2"
+            Background="{x:Null}">
 
+            <ContentPresenter 
+                RecognizesAccessKey="True" 
+                VerticalAlignment="Center"   
+                HorizontalAlignment="Center" 
+                TextBlock.FontSize="15"
+                TextBlock.FontWeight="Bold" />
+
+        </Border>
+
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="false">
+                <Setter Property="Button.Foreground" Value="{DynamicResource Great3}" />
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter Property="Button.Foreground" Value="{DynamicResource Great3}" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="true">
+                <Setter Property="Button.Foreground" Value="{DynamicResource Great1}" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+
+
+    <ControlTemplate TargetType="Button" x:Key="ButtonTemplate2Dark">
+        <Border  
+            x:Name="buttonBorder"  
+            Background="{DynamicResource Great3}">
+
+            <ContentPresenter 
+                RecognizesAccessKey="True" 
+                VerticalAlignment="Center"  
+                HorizontalAlignment="Center"/>
+
+        </Border>
+
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="false">
+                <Setter Property="Button.Foreground" Value="{DynamicResource Great1}" />
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter Property="Button.Foreground" Value="{DynamicResource Great2}" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="true">
+                <Setter Property="Button.Foreground" Value="{DynamicResource Great2}" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+
+
+    <Style x:Key="ButonStyleDark" TargetType="Button">
+        <Setter Property="BorderBrush" Value="{DynamicResource Great3}"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="Background" Value="{x:Null}"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Template" Value="{StaticResource ButtonTemplateDark}"/>
+    </Style>
+
+
+    <Style x:Key="ButonStyle2Dark" TargetType="Button">
+        <Setter Property="BorderBrush" Value="{DynamicResource Great3}"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="Template" Value="{StaticResource ButtonTemplate2Dark}"/>
+    </Style>
+
+
+   
+
+
+    <Style x:Key="LabelStyleDark" TargetType="Label">
+        <Setter Property="Background" Value="{DynamicResource Great3}" />
+        <Setter Property="Foreground" Value="{DynamicResource Great1}"/>
+    </Style>
+
+    <Style x:Key="TabControlStyleDark" TargetType="TabControl">
+        <Setter Property="Background" Value="{DynamicResource Great1}"/>
+    </Style>
+
+    <Style x:Key="GridTopDark" TargetType="Grid">
+        <Setter Property="Background" Value="{DynamicResource Great3}"/>
+    </Style>
+
+    <Style x:Key="GridBackgroundDark" TargetType="Grid">
+        <Setter Property="Background" Value="{DynamicResource Great2}"/>
+    </Style>
+
+    <Style x:Key="GridListDark" TargetType="Grid">
+        <Setter Property="Background" Value="{DynamicResource Great3}"/>
+    </Style>
+
+
+    <Style x:Key="TextBlockStyleDark" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{DynamicResource Great1}"/>
+    </Style>
+
+    <Style x:Key="TextBoxStyleDark" TargetType="TextBox">
+        <Setter Property="Foreground" Value="{DynamicResource Great1}"/>
+        <Setter Property="Background" Value="{x:Null}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource Great3}"/>
+    </Style>
+
+    <Style x:Key="CheckboxStyleDark" TargetType="CheckBox">
+        <Setter Property="Background" Value="{DynamicResource Great1}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource Great1}"/>
+    </Style>
+
+    <Style x:Key="RadioButtonStyleDark" TargetType="RadioButton">
+        <Setter Property="Foreground" Value="{DynamicResource Great1}"/>
+        <Setter Property="Background" Value="{DynamicResource Great3}"/>
+    </Style>
+    
 </ResourceDictionary>

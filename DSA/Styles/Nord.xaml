@@ -3,7 +3,7 @@
 
 
 
-    <ControlTemplate TargetType="Button" x:Key="ButtonTemplate">
+    <ControlTemplate TargetType="Button" x:Key="ButtonTemplateNord">
         <Border 
             x:Name="buttonBorder"  
             BorderBrush="{DynamicResource PolarNight_4}" 
@@ -34,7 +34,7 @@
 
 
 
-    <ControlTemplate TargetType="Button" x:Key="ButtonTemplate2">
+    <ControlTemplate TargetType="Button" x:Key="ButtonTemplate2Nord">
         <Border  
             x:Name="buttonBorder"  
             Background="{DynamicResource PolarNight_4}">
@@ -47,24 +47,22 @@
         </Border>
 
         <ControlTemplate.Triggers>
-            <Trigger Property="IsEnabled" Value="false">
-                <Setter 
-                    TargetName="buttonBorder" 
-                    Property="TextBlock.Foreground" 
-                    Value="{DynamicResource Aurora_rad}" />
+            <Trigger Property="IsMouseOver" Value="false">
+                <Setter Property="Button.Foreground" Value="{DynamicResource Frost_4}" />
             </Trigger>
-            <Trigger Property="IsEnabled" Value="true">
-                <Setter 
-                    TargetName="buttonBorder" 
-                    Property="TextBlock.Foreground" 
-                    Value="{DynamicResource Frost_1}" />
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter Property="Button.Foreground" Value="{DynamicResource Frost_3}" />
             </Trigger>
+            <Trigger Property="IsPressed" Value="true">
+                <Setter Property="Button.Foreground" Value="{DynamicResource Frost_1}" />
+            </Trigger>
+
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
 
 
-    <Style x:Key="ButonDarkStyleNord" TargetType="Button">
+    <Style x:Key="ButonStyleNord" TargetType="Button">
         <Setter Property="BorderBrush" Value="{DynamicResource PolarNight_4}"/>
         <Setter Property="BorderThickness" Value="2"/>
         <Setter Property="Background" Value="{x:Null}"/>
@@ -72,17 +70,16 @@
         <Setter Property="HorizontalAlignment" Value="Center" />
         <Setter Property="FontSize" Value="15"/>
         <Setter Property="FontWeight" Value="Bold"/>
-        <Setter Property="Template" Value="{StaticResource ButtonTemplate}"/>
+        <Setter Property="Template" Value="{StaticResource ButtonTemplateNord}"/>
     </Style>
 
 
 
 
-    <Style x:Key="ButonDarkStyle2Nord" TargetType="Button">
-        <Setter Property="BorderBrush" Value="{DynamicResource PolarNight_4}"/>
+    <Style x:Key="ButonStyle2Nord" TargetType="Button">
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="HorizontalAlignment" Value="Center" />
-        <Setter Property="Template" Value="{StaticResource ButtonTemplate2}"/>
+        <Setter Property="Template" Value="{StaticResource ButtonTemplate2Nord}"/>
     </Style>
 
 
@@ -109,11 +106,24 @@
 
 
     <Style x:Key="TextBlockStyleNord" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="#FFADEDFD"/>
+    </Style>
+
+    <Style x:Key="TextBoxStyleNord" TargetType="TextBox">
         <Setter Property="Foreground" Value="{DynamicResource SnowStorm_1}"/>
+        <Setter Property="Background" Value="{x:Null}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource PolarNight_4}"/>
     </Style>
 
     <Style x:Key="CheckboxStyleNord" TargetType="CheckBox">
         <Setter Property="Background" Value="{DynamicResource Frost_1}"/>
         <Setter Property="BorderBrush" Value="{DynamicResource Frost_1}"/>
     </Style>
+
+
+    <Style x:Key="RadioButtonStyleNord" TargetType="RadioButton">
+        <Setter Property="Foreground" Value="{DynamicResource SnowStorm_1}"/>
+        <Setter Property="Background" Value="{DynamicResource Frost_1}"/>
+    </Style>
+    
 </ResourceDictionary>
