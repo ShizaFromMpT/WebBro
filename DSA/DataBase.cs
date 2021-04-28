@@ -27,12 +27,17 @@ namespace DSA
 
         public static void fillList(ObservableCollection<string> list, string path)
         {
-            StreamReader f = new StreamReader(path);
-            while (!f.EndOfStream)
+            try
             {
-                list.Add(f.ReadLine());
+                StreamReader f = new StreamReader(path);
+                while (!f.EndOfStream)
+                {
+                    list.Add(f.ReadLine());
+                }
+                f.Close();
             }
-            f.Close();
+            catch (Exception e2) { }
+           
         }
 
         public static void saveList(ObservableCollection<string> list, string path)
