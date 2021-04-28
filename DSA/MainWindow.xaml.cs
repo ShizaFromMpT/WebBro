@@ -33,49 +33,49 @@ namespace DSA
 
         public static List<string> list_themeNord = new List<string>
         {
-            "GridBackgroundNord",    //0
-            "GridTopNord",           //1
-            "TextBoxStyleNord",      //2
-            "ButonStyleNord",        //3
-            "TabControlStyleNord",   //4
-            "GridListNord",          //5
-            "LabelStyleNord",        //6
-            "ButonStyle2Nord",       //7
-            "TextBlockStyleNord",    //8
-            "CheckboxStyleNord",     //9
+            "GridBackgroundNord",       //0
+            "GridTopNord",              //1
+            "TextBoxStyleNord",         //2
+            "ButonStyleNord",           //3
+            "TabControlStyleNord",      //4
+            "GridListNord",             //5
+            "LabelStyleNord",           //6
+            "ButonStyle2Nord",          //7
+            "TextBlockStyleNord",       //8
+            "CheckboxStyleNord",        //9
             "RadioButtonStyleNord"      //10
         };
 
 
         public static List<string> list_themeDark = new List<string>
         {
-            "GridBackgroundDark",    //0
-            "GridTopDark",           //1
-            "TextBoxStyleDark",      //2
-            "ButonStyleDark",        //3
-            "TabControlStyleDark",   //4
-            "GridListDark",          //5
-            "LabelStyleDark",        //6
-            "ButonStyle2Dark",       //7
-            "TextBlockStyleDark",    //8
-            "CheckboxStyleDark",     //9
+            "GridBackgroundDark",       //0
+            "GridTopDark",              //1
+            "TextBoxStyleDark",         //2
+            "ButonStyleDark",           //3
+            "TabControlStyleDark",      //4
+            "GridListDark",             //5
+            "LabelStyleDark",           //6
+            "ButonStyle2Dark",          //7
+            "TextBlockStyleDark",       //8
+            "CheckboxStyleDark",        //9
             "RadioButtonStyleDark"      //10
         };
 
 
         public static List<string> list_themeLight = new List<string>
         {
-            "GridBackgroundLight",    //0
-            "GridTopLight",           //1
-            "TextBoxStyleLight",      //2
-            "ButonStyleLight",        //3
-            "TabControlStyleLight",   //4
-            "GridListLight",          //5
-            "LabelStyleLight",        //6
-            "ButonStyle2Light",       //7
-            "TextBlockStyleLight",    //8
-            "CheckboxStyleLight",     //9
-            "RadioButtonStyleLight"      //10
+            "GridBackgroundLight",      //0
+            "GridTopLight",             //1
+            "TextBoxStyleLight",        //2
+            "ButonStyleLight",          //3
+            "TabControlStyleLight",     //4
+            "GridListLight",            //5
+            "LabelStyleLight",          //6
+            "ButonStyle2Light",         //7
+            "TextBlockStyleLight",      //8
+            "CheckboxStyleLight",       //9
+            "RadioButtonStyleLight"     //10
         };
 
 
@@ -85,8 +85,7 @@ namespace DSA
             GridWithLists.Width = 0;
             GridWithSettings.Width = 0;
 
-
-
+            // check is file exists
             if (!File.Exists(DataBase.FILE_HISTORY))
                 File.Create(DataBase.FILE_HISTORY);
             if (!File.Exists(DataBase.FILE_FAVORITES))
@@ -105,6 +104,7 @@ namespace DSA
 
 
             tab1.Content.TitleChanged += ChromiumWebBrowser_TitleChanged;
+            tab1.Content.AddressChanged += ChromiumBrowser_AddressChanged;
 
 
             Tabs.Add(tab1);
@@ -372,6 +372,12 @@ namespace DSA
         {
             if (MyTabControl.SelectedIndex != -1)
                 Tabs[MyTabControl.SelectedIndex].Header = (sender as ChromiumWebBrowser).Title;
+        }
+
+        private void ChromiumBrowser_AddressChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (MyTabControl.SelectedIndex != -1)
+                history.Add((sender as ChromiumWebBrowser).Address);
         }
 
         private void ButtonDownload_Click(object sender, RoutedEventArgs e)

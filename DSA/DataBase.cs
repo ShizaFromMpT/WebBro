@@ -12,7 +12,6 @@ namespace DSA
         public static string FILE_FAVORITES = "favorites";
 
 
-
         public static string getData(string path)
         {
             string s = "";
