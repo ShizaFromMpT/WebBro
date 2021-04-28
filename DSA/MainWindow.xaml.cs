@@ -26,6 +26,7 @@ namespace DSA
 {
     public partial class MainWindow : Window
     {
+        bool isIncognitoMode = false;
         new int TabIndex = 1;
         ObservableCollection<TabVM> Tabs = new ObservableCollection<TabVM>();
         ObservableCollection<string> history = new ObservableCollection<string>();
@@ -215,7 +216,7 @@ namespace DSA
                     (MyTabControl.SelectedItem as TabVM).Content.Address = SearchTextBox.Text;
                     (MyTabControl.SelectedItem as TabVM).Header = (MyTabControl.SelectedItem as TabVM).Content.Title;
                 }
-                history.Add(SearchTextBox.Text);
+                //history.Add(SearchTextBox.Text);
             }
         }
 
@@ -336,6 +337,11 @@ namespace DSA
 
         }
 
+        private void Button_Incognito_Click(object sender, RoutedEventArgs e)
+        {
+            isIncognitoMode = !isIncognitoMode;
+        }
+
         private void Button_Click_Add_Favorites(object sender, RoutedEventArgs e)
         {
             try
@@ -376,6 +382,7 @@ namespace DSA
 
         private void ChromiumBrowser_AddressChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
+            if (isIncognitoMode) { return; }
             if (MyTabControl.SelectedIndex != -1)
                 history.Add((sender as ChromiumWebBrowser).Address);
         }

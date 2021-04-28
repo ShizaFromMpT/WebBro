@@ -40,6 +40,7 @@
                 <ColumnDefinition Width="35"/>
                 <ColumnDefinition Width="35"/>
                 <ColumnDefinition Width="35"/>
+                <ColumnDefinition Width="35"/>
             </Grid.ColumnDefinitions>
             <TextBox x:Name="SearchTextBox" KeyDown="SearchTextBox_KeyDown" Style="{DynamicResource TextBoxStyleNord}" BorderThickness="2"  Grid.Column="4" Text="{Binding Path=Sourse}"  Height="30" Grid.Row="1"/>
             <Button  x:Name="ButtonBack" Content="❮" Style="{DynamicResource ButonStyleNord}" Width="35"  Click="Button_Click_Back" Height="30" />
@@ -50,6 +51,7 @@
             <Button  x:Name="ButtonFavorite" Content="★" Grid.Column="6"  Style="{DynamicResource ButonStyleNord}" Width="35" Click="Button_Click_Add_Favorites" Height="30"/>
             <Button  x:Name="ButtonLists" Content="≡" Grid.Column="7" Style="{DynamicResource ButonStyleNord}" FontSize="20"  Width="35"  Click="Button_Click_History" Height="30" />
             <Button  x:Name="ButtonSettings" Content="⚙" Grid.Column="8"  Style="{DynamicResource ButonStyleNord}" Width="35" Click="Button_Click_Settings" Height="30" />
+            <Button x:Name="ButtonIncognito" Content="" Grid.Column="9" Style="{DynamicResource ButonStyleNord}" Width="35" Click="Button_Incognito_Click" Height="30"/>
         </Grid>
 
 
