@@ -306,7 +306,7 @@
             </Grid>
 
 
-            <Grid Grid.Row="3" Height="30">
+            <Grid Grid.Row="3 " Height="30">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="80"/>
                     <ColumnDefinition/>

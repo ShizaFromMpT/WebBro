@@ -265,7 +265,7 @@ namespace DSA
             {
                 TabVM tab = MyTabControl.SelectedItem as TabVM;
                 ChromiumWebBrowser w = tab.Content;
-                w.Address = w.Address;
+                w.Reload();
           
             }
         }
