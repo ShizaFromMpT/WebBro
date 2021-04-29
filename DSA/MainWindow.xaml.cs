@@ -339,7 +339,7 @@ namespace DSA
 
         private void Button_Incognito_Click(object sender, RoutedEventArgs e)
         {
-            isIncognitoMode = !isIncognitoMode;
+            this.isIncognitoMode = !this.isIncognitoMode;
         }
 
         private void Button_Click_Add_Favorites(object sender, RoutedEventArgs e)
@@ -382,7 +382,7 @@ namespace DSA
 
         private void ChromiumBrowser_AddressChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            if (isIncognitoMode) { return; }
+            if (this.isIncognitoMode) { return; }
             if (MyTabControl.SelectedIndex != -1)
                 history.Add((sender as ChromiumWebBrowser).Address);
         }

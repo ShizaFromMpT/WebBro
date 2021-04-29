@@ -51,7 +51,7 @@
             <Button  x:Name="ButtonFavorite" Content="★" Grid.Column="6"  Style="{DynamicResource ButonStyleNord}" Width="35" Click="Button_Click_Add_Favorites" Height="30"/>
             <Button  x:Name="ButtonLists" Content="≡" Grid.Column="7" Style="{DynamicResource ButonStyleNord}" FontSize="20"  Width="35"  Click="Button_Click_History" Height="30" />
             <Button  x:Name="ButtonSettings" Content="⚙" Grid.Column="8"  Style="{DynamicResource ButonStyleNord}" Width="35" Click="Button_Click_Settings" Height="30" />
-            <Button x:Name="ButtonIncognito" Content="" Grid.Column="9" Style="{DynamicResource ButonStyleNord}" Width="35" Click="Button_Incognito_Click" Height="30"/>
+            <Button x:Name="ButtonIncognito" Content="🔥" Grid.Column="9" Style="{DynamicResource ButonStyleNord}" Width="35" Click="Button_Incognito_Click" Height="30"/>
         </Grid>
 
 
