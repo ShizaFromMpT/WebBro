@@ -10,8 +10,8 @@ namespace DSA
     {
         public static string FILE_HISTORY = "history";
         public static string FILE_FAVORITES = "favorites";
-
-
+        public static string FILE_START_PAGE = "startPage";
+        public static string FILE_HOME_PAGE = "homePage";
         public static string getData(string path)
         {
             string s = "";

@@ -93,12 +93,12 @@
             <Label 
                 x:Name="IcoIncognito"
                 Content="{DynamicResource incognito}" 
-                   Grid.Column="4" 
+                Grid.Column="4" 
                 Visibility="Hidden"
-                   HorizontalAlignment="Right"
-                   RenderOptions.BitmapScalingMode="Fant"
-                   Padding="0,0,0,0"
-                   VerticalAlignment="Center" Width="24"/>
+                HorizontalAlignment="Right"
+                RenderOptions.BitmapScalingMode="Fant"
+                Padding="0,0,0,0"
+                VerticalAlignment="Center" Width="24"/>
         </Grid>
 
 
@@ -264,29 +264,16 @@
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
-                <RowDefinition Height="30"/>
+                <RowDefinition/>
+                <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
             <Label x:Name="Label_Settings" Content="Settings" FontSize="23" Style="{DynamicResource LabelStyleNord}" />
 
-            <Grid Grid.Row="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition Width="40"/>
-                </Grid.ColumnDefinitions>
+            
 
-                <Label x:Name="Label_IncognitoMode" Content="Incognito mode:"  
-                       VerticalAlignment="Center" 
-                       Style="{DynamicResource LabelStyleNord}" />
-                <CheckBox x:Name="CheckBoxIncognito"  Grid.Column="1" HorizontalAlignment="Right" 
-                           Margin="0,0,20,0" 
-                          Style="{DynamicResource CheckboxStyleNord}"
-                           VerticalAlignment="Center"/>
-
-            </Grid>
-
-            <Grid Grid.Row="2" Height="120">
+            <Grid Grid.Row="1" Height="120">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition Width="40"/>
@@ -301,10 +288,40 @@
 
             </Grid>
 
+            <Grid Grid.Row="2" Height="30">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                
+                
+                <Label x:Name="LabelStartPage" Content="Start page:"  
+                       VerticalAlignment="Top" 
+                       Style="{DynamicResource LabelStyleNord}" />
+
+                <TextBox x:Name="TextBoxStartPage" KeyDown="TextBoxStartPage_KeyDown" 
+                         Style="{DynamicResource TextBoxStyleNord}"
+                         BorderThickness="2" 
+                         Height="30" Grid.Column="1"/>
+            </Grid>
 
 
+            <Grid Grid.Row="3" Height="30">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
 
 
+                <Label x:Name="LabelHomePage" Content="Home page:"  
+                       VerticalAlignment="Top" 
+                       Style="{DynamicResource LabelStyleNord}" />
+
+                <TextBox x:Name="TextBoxHomePage" KeyDown="TextBoxHomePage_KeyDown" 
+                         Style="{DynamicResource TextBoxStyleNord}"
+                         BorderThickness="2" 
+                         Height="30" Grid.Column="1"/>
+            </Grid>
         </Grid>
     </Grid>
 </Window>

@@ -31,6 +31,8 @@ namespace DSA
         ObservableCollection<TabVM> Tabs = new ObservableCollection<TabVM>();
         ObservableCollection<string> history = new ObservableCollection<string>();
         ObservableCollection<string> favorites = new ObservableCollection<string>();
+        string startPage, homePage;
+        
 
         public static List<string> list_themeNord = new List<string>
         {
@@ -92,15 +94,27 @@ namespace DSA
             if (!File.Exists(DataBase.FILE_FAVORITES))
                 File.Create(DataBase.FILE_FAVORITES);
 
+            if (!File.Exists(DataBase.FILE_START_PAGE))
+                DataBase.writeInFile(DataBase.FILE_START_PAGE, "https://github.com", FileMode.OpenOrCreate);
+            
+            if (!File.Exists(DataBase.FILE_HOME_PAGE))
+                DataBase.writeInFile(DataBase.FILE_HOME_PAGE, "https://duckduckgo.com", FileMode.OpenOrCreate);
+            
+
+
             DataBase.fillList(history, DataBase.FILE_HISTORY);
             DataBase.fillList(favorites, DataBase.FILE_FAVORITES);
 
+            startPage = DataBase.getData(DataBase.FILE_START_PAGE);
+            TextBoxStartPage.Text = startPage;
+            homePage = DataBase.getData(DataBase.FILE_HOME_PAGE);
+            TextBoxHomePage.Text = homePage;
 
 
             this.WindowState = WindowState.Maximized;
             var tab1 = new TabVM();
 
-            tab1.Content = new ChromiumWebBrowser("https://github.com");
+            tab1.Content = new ChromiumWebBrowser(startPage);
             tab1.Header = tab1.Content.Title;
 
 
@@ -174,7 +188,7 @@ namespace DSA
             TabIndex++;
             //tab.Header = $"Tab {TabIndex}";
             tab.IsPlaceholder = false;
-            tab.Content = new ChromiumWebBrowser("https://duckduckgo.com");
+            tab.Content = new ChromiumWebBrowser(homePage);
           //  MessageBox.Show(tab.Content.Title);
             tab.Header = tab.Content.Title;
         }
@@ -262,7 +276,7 @@ namespace DSA
             {
                 TabVM tab = MyTabControl.SelectedItem as TabVM;
                 ChromiumWebBrowser w = tab.Content;
-                w.Address = "https://duckduckgo.com";
+                w.Address = homePage;
             }
         }
 
@@ -388,38 +402,28 @@ namespace DSA
                 history.Add((sender as ChromiumWebBrowser).Address);
         }
 
-        private void ButtonDownload_Click(object sender, RoutedEventArgs e)
-        {
-           
-        }
+     
 
         private void Button_Click_Apply_Theme(object sender, RoutedEventArgs e)
         {
             if (RadioButLightTheme.IsChecked == true)
-            {
                  setStile(list_themeLight);
-            }
             else if (RadioButDarkTheme.IsChecked == true)
-            {
                 setStile(list_themeDark);
-            }
             else if (RadioButNordTheme.IsChecked == true)
-            {
                 setStile(list_themeNord);
-
-            }
-
         }
-
-       
 
         public void setStile(List<string> styles)
         {
             GridBackGround.Style = (Style)FindResource(styles[0]);
             GridTop.Style = (Style)FindResource(styles[1]);
             SearchTextBox.Style = (Style)FindResource(styles[2]);
+            TextBoxStartPage.Style = (Style)FindResource(styles[2]);
+            TextBoxHomePage.Style = (Style)FindResource(styles[2]);
 
-            
+
+
 
             ButtonBack.Style = (Style)FindResource(styles[3]);
             ButtonForvard.Style = (Style)FindResource(styles[3]);
@@ -434,23 +438,23 @@ namespace DSA
             MyTabControl.Style = (Style)FindResource(styles[4]);
 
             GridWithLists.Style = (Style)FindResource(styles[5]);
-
-            LabelHistory.Style = (Style)FindResource(styles[6]);
-            Button_deleteAll_History.Style = (Style)FindResource(styles[7]);
-            Button_delete_History.Style = (Style)FindResource(styles[7]);
+            GridWithSettings.Style = (Style)FindResource(styles[5]);
 
             LabelFavorites.Style = (Style)FindResource(styles[6]);
+            LabelStartPage.Style = (Style)FindResource(styles[6]);
+            LabelHomePage.Style = (Style)FindResource(styles[6]);
+            //Label_IncognitoMode.Style = (Style)FindResource(styles[6]);
+            LabelHistory.Style = (Style)FindResource(styles[6]);
+            Label_Settings.Style = (Style)FindResource(styles[6]);
+            LabelThemes.Style = (Style)FindResource(styles[6]);
+
             Button_delete_Favorites.Style = (Style)FindResource(styles[7]);
             Button_deleteAll_Favorites.Style = (Style)FindResource(styles[7]);
-
-            GridWithSettings.Style = (Style)FindResource(styles[5]);
-            Label_Settings.Style = (Style)FindResource(styles[6]);
-
-            Label_IncognitoMode.Style = (Style)FindResource(styles[6]);
-            CheckBoxIncognito.Style = (Style)FindResource(styles[9]);
-            LabelThemes.Style = (Style)FindResource(styles[6]);
+            Button_deleteAll_History.Style = (Style)FindResource(styles[7]);
+            Button_delete_History.Style = (Style)FindResource(styles[7]);
             Button_Apply_Theme.Style = (Style)FindResource(styles[7]);
-
+            
+           // CheckBoxIncognito.Style = (Style)FindResource(styles[9]);
 
             RadioButLightTheme.Style = (Style)FindResource(styles[10]);
             RadioButDarkTheme.Style = (Style)FindResource(styles[10]);
@@ -459,7 +463,30 @@ namespace DSA
         }
 
 
+        private void ButtonDownload_Click(object sender, RoutedEventArgs e)
+        {
 
+        }
+        private void TextBoxStartPage_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Enter)
+            {
+                string str = TextBoxStartPage.Text;
+                startPage = str;
+                DataBase.writeInFile(DataBase.FILE_START_PAGE, str, FileMode.Create);
+            }
+           
+        }
 
+        private void TextBoxHomePage_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                string str = TextBoxHomePage.Text;
+                homePage = str;
+                DataBase.writeInFile(DataBase.FILE_HOME_PAGE, str, FileMode.Create);
+            }
+                
+        }
     }
 }
