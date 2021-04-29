@@ -33,6 +33,7 @@ namespace DSA
         ObservableCollection<TabVM> Tabs = new ObservableCollection<TabVM>();
         ObservableCollection<string> history = new ObservableCollection<string>();
         ObservableCollection<string> favorites = new ObservableCollection<string>();
+        public static ObservableCollection<string> downloads = new ObservableCollection<string>();
         string startPage, homePage;
         public static WebClient client = new WebClient();
         public static string UriDownload;
@@ -91,6 +92,7 @@ namespace DSA
             InitializeComponent();
             GridWithLists.Width = 0;
             GridWithSettings.Width = 0;
+            GridWithDownliads.Width = 0;
 
             client.DownloadFileCompleted += Client_DownloadFileCompleted;
 
@@ -99,17 +101,20 @@ namespace DSA
                 File.Create(DataBase.FILE_HISTORY);
             if (!File.Exists(DataBase.FILE_FAVORITES))
                 File.Create(DataBase.FILE_FAVORITES);
+            if (!File.Exists(DataBase.FILE_DOWNLOADS))
+                File.Create(DataBase.FILE_DOWNLOADS);
 
             if (!File.Exists(DataBase.FILE_START_PAGE))
                 DataBase.writeInFile(DataBase.FILE_START_PAGE, "https://github.com", FileMode.OpenOrCreate);
-            
+
             if (!File.Exists(DataBase.FILE_HOME_PAGE))
                 DataBase.writeInFile(DataBase.FILE_HOME_PAGE, "https://duckduckgo.com", FileMode.OpenOrCreate);
-            
+
 
 
             DataBase.fillList(history, DataBase.FILE_HISTORY);
             DataBase.fillList(favorites, DataBase.FILE_FAVORITES);
+            DataBase.fillList(downloads, DataBase.FILE_DOWNLOADS);
 
             startPage = DataBase.getData(DataBase.FILE_START_PAGE);
             TextBoxStartPage.Text = startPage;
@@ -136,6 +141,7 @@ namespace DSA
             MyTabControl.SelectionChanged += MyTabControl_SelectionChanged;
             ListHistory.ItemsSource = history;
             ListFavorites.ItemsSource = favorites;
+            ListDownloads.ItemsSource = downloads;
         }
 
         private void Client_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
@@ -150,10 +156,11 @@ namespace DSA
 
         private void Button_Click_FullScreen(object sender, RoutedEventArgs e)
         {
-            if(this.WindowState == WindowState.Maximized)
+            if (this.WindowState == WindowState.Maximized)
             {
                 this.WindowState = WindowState.Normal;
-            }else
+            }
+            else
                 this.WindowState = WindowState.Maximized;
         }
         private void Grid_Mouse(object sender, MouseButtonEventArgs e)
@@ -162,7 +169,7 @@ namespace DSA
             {
                 this.WindowState = WindowState.Normal;
                 DragMove();
-                
+
             }
         }
 
@@ -170,6 +177,7 @@ namespace DSA
         {
             DataBase.saveList(history, DataBase.FILE_HISTORY);
             DataBase.saveList(favorites, DataBase.FILE_FAVORITES);
+            DataBase.saveList(downloads, DataBase.FILE_DOWNLOADS);
             Application.Current.Shutdown();
         }
 
@@ -187,7 +195,7 @@ namespace DSA
             }
         }
 
-       
+
 
 
         void ConvertPlusToNewTab(TabVM tab)
@@ -197,7 +205,7 @@ namespace DSA
             //tab.Header = $"Tab {TabIndex}";
             tab.IsPlaceholder = false;
             tab.Content = new ChromiumWebBrowser(homePage);
-          //  MessageBox.Show(tab.Content.Title);
+            //  MessageBox.Show(tab.Content.Title);
             tab.Header = tab.Content.Title;
         }
 
@@ -210,7 +218,7 @@ namespace DSA
                 Header = "+",
                 IsPlaceholder = true
             };
-     
+
             Tabs.Add(plusTab);
         }
 
@@ -275,7 +283,7 @@ namespace DSA
                 TabVM tab = MyTabControl.SelectedItem as TabVM;
                 ChromiumWebBrowser w = tab.Content;
                 w.Reload();
-          
+
             }
         }
 
@@ -305,13 +313,20 @@ namespace DSA
             GridWithLists.BeginAnimation(StackPanel.WidthProperty, animation);
 
 
+            //убираем остальные
             DoubleAnimation animation2 = new DoubleAnimation();
             animation2.From = GridWithSettings.ActualWidth;
-            if (GridWithSettings.ActualWidth != 0)
-                animation2.To = 0;
+            animation2.To = 0;
             animation2.AccelerationRatio = 1;
             animation2.Duration = TimeSpan.FromSeconds(0.1);
             GridWithSettings.BeginAnimation(StackPanel.WidthProperty, animation2);
+
+            DoubleAnimation animation3 = new DoubleAnimation();
+            animation3.From = GridWithDownliads.ActualWidth;
+            animation3.To = 0;
+            animation3.AccelerationRatio = 1;
+            animation3.Duration = TimeSpan.FromSeconds(0.1);
+            GridWithDownliads.BeginAnimation(StackPanel.WidthProperty, animation3);
         }
 
 
@@ -330,13 +345,51 @@ namespace DSA
             GridWithSettings.BeginAnimation(StackPanel.WidthProperty, animation);
 
 
+            //убираем остальные
             DoubleAnimation animation2 = new DoubleAnimation();
             animation2.From = GridWithLists.ActualWidth;
-            if (GridWithLists.ActualWidth != 0)
-                animation2.To = 0;
+            animation2.To = 0;
             animation2.AccelerationRatio = 1;
             animation2.Duration = TimeSpan.FromSeconds(0.1);
             GridWithLists.BeginAnimation(StackPanel.WidthProperty, animation2);
+
+
+            DoubleAnimation animation3 = new DoubleAnimation();
+            animation3.From = GridWithDownliads.ActualWidth;
+            animation3.To = 0;
+            animation3.AccelerationRatio = 1;
+            animation3.Duration = TimeSpan.FromSeconds(0.1);
+            GridWithDownliads.BeginAnimation(StackPanel.WidthProperty, animation3);
+        }
+
+
+        private void ButtonDownload_Click(object sender, RoutedEventArgs e)
+        {
+            DoubleAnimation animation = new DoubleAnimation();
+            animation.From = GridWithDownliads.ActualWidth;
+            if (GridWithDownliads.ActualWidth == 0)
+                animation.To = 500;
+            else
+                animation.To = 0;
+            animation.AccelerationRatio = 1;
+            animation.Duration = TimeSpan.FromSeconds(0.1);
+            GridWithDownliads.BeginAnimation(StackPanel.WidthProperty, animation);
+
+
+            //убираем остальные
+            DoubleAnimation animation2 = new DoubleAnimation();
+            animation2.From = GridWithLists.ActualWidth;
+            animation2.To = 0;
+            animation2.AccelerationRatio = 1;
+            animation2.Duration = TimeSpan.FromSeconds(0.1);
+            GridWithLists.BeginAnimation(StackPanel.WidthProperty, animation2);
+
+            DoubleAnimation animation3 = new DoubleAnimation();
+            animation3.From = GridWithSettings.ActualWidth;
+            animation3.To = 0;
+            animation3.AccelerationRatio = 1;
+            animation3.Duration = TimeSpan.FromSeconds(0.1);
+            GridWithSettings.BeginAnimation(StackPanel.WidthProperty, animation3);
         }
 
 
@@ -364,7 +417,7 @@ namespace DSA
         private void Button_Incognito_Click(object sender, RoutedEventArgs e)
         {
             this.isIncognitoMode = !this.isIncognitoMode;
-            IcoIncognito.Visibility = this.isIncognitoMode ?   Visibility.Visible :  Visibility.Hidden;
+            IcoIncognito.Visibility = this.isIncognitoMode ? Visibility.Visible : Visibility.Hidden;
         }
 
         private void Button_Click_Add_Favorites(object sender, RoutedEventArgs e)
@@ -380,7 +433,7 @@ namespace DSA
                 }
             }
             catch (Exception e2) { }
-          
+
         }
 
         private void Button_Click_delete_item_history_All(object sender, RoutedEventArgs e)
@@ -412,12 +465,12 @@ namespace DSA
                 history.Add((sender as ChromiumWebBrowser).Address);
         }
 
-     
+
 
         private void Button_Click_Apply_Theme(object sender, RoutedEventArgs e)
         {
             if (RadioButLightTheme.IsChecked == true)
-                 setStile(list_themeLight);
+                setStile(list_themeLight);
             else if (RadioButDarkTheme.IsChecked == true)
                 setStile(list_themeDark);
             else if (RadioButNordTheme.IsChecked == true)
@@ -439,16 +492,19 @@ namespace DSA
             ButtonForvard.Style = (Style)FindResource(styles[3]);
             ButtonReload.Style = (Style)FindResource(styles[3]);
             ButtonHome.Style = (Style)FindResource(styles[3]);
-            ButtonDownload.Style = (Style)FindResource(styles[3]);
+           // ButtonDownload.Style = (Style)FindResource(styles[3]);
             ButtonFavorite.Style = (Style)FindResource(styles[3]);
             ButtonLists.Style = (Style)FindResource(styles[3]);
             ButtonSettings.Style = (Style)FindResource(styles[3]);
             ButtonIncognito.Style = (Style)FindResource(styles[3]);
 
+
+
             MyTabControl.Style = (Style)FindResource(styles[4]);
 
             GridWithLists.Style = (Style)FindResource(styles[5]);
             GridWithSettings.Style = (Style)FindResource(styles[5]);
+            GridWithDownliads.Style = (Style)FindResource(styles[5]);
 
             LabelFavorites.Style = (Style)FindResource(styles[6]);
             LabelStartPage.Style = (Style)FindResource(styles[6]);
@@ -457,14 +513,17 @@ namespace DSA
             LabelHistory.Style = (Style)FindResource(styles[6]);
             Label_Settings.Style = (Style)FindResource(styles[6]);
             LabelThemes.Style = (Style)FindResource(styles[6]);
+            LabelDownload.Style = (Style)FindResource(styles[6]);
 
             Button_delete_Favorites.Style = (Style)FindResource(styles[7]);
             Button_deleteAll_Favorites.Style = (Style)FindResource(styles[7]);
             Button_deleteAll_History.Style = (Style)FindResource(styles[7]);
             Button_delete_History.Style = (Style)FindResource(styles[7]);
             Button_Apply_Theme.Style = (Style)FindResource(styles[7]);
-            
-           // CheckBoxIncognito.Style = (Style)FindResource(styles[9]);
+            Button_delete_Download.Style = (Style)FindResource(styles[7]);
+            Button_deleteAll_Download.Style = (Style)FindResource(styles[7]);
+
+            // CheckBoxIncognito.Style = (Style)FindResource(styles[9]);
 
             RadioButLightTheme.Style = (Style)FindResource(styles[10]);
             RadioButDarkTheme.Style = (Style)FindResource(styles[10]);
@@ -473,19 +532,27 @@ namespace DSA
         }
 
 
-        private void ButtonDownload_Click(object sender, RoutedEventArgs e)
-        {
 
-        }
         private void TextBoxStartPage_KeyDown(object sender, KeyEventArgs e)
         {
-            if(e.Key == Key.Enter)
+            if (e.Key == Key.Enter)
             {
                 string str = TextBoxStartPage.Text;
                 startPage = str;
                 DataBase.writeInFile(DataBase.FILE_START_PAGE, str, FileMode.Create);
             }
-           
+
+        }
+
+        private void Button_Click_delete_item_Download(object sender, RoutedEventArgs e)
+        {
+            if (ListDownloads.SelectedItem != null)
+                downloads.Remove(ListDownloads.SelectedItem as string);
+        }
+
+        private void Button_Click_delete_item_Download_All(object sender, RoutedEventArgs e)
+        {
+            downloads.Clear();
         }
 
         private void TextBoxHomePage_KeyDown(object sender, KeyEventArgs e)
@@ -496,11 +563,7 @@ namespace DSA
                 homePage = str;
                 DataBase.writeInFile(DataBase.FILE_HOME_PAGE, str, FileMode.Create);
             }
-                
         }
-
-      
-        
     }
 
 
@@ -519,7 +582,7 @@ namespace DSA
             {
                 using (callback)
                 {
-                    callback.Continue(downloadItem.SuggestedFileName, showDialog : true);
+                    callback.Continue(downloadItem.SuggestedFileName, showDialog: true);
                 }
             }
 
@@ -527,6 +590,8 @@ namespace DSA
 
         public void OnDownloadUpdated(IWebBrowser chromiumWebBrowser, IBrowser browser, DownloadItem downloadItem, IDownloadItemCallback callback)
         {
+
+
             OnDownloadUpdatedFired?.Invoke(this, downloadItem);
         }
     }

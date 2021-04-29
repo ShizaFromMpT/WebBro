@@ -80,12 +80,12 @@
                 <ColumnDefinition Width="35"/>
                 <ColumnDefinition Width="35"/>
             </Grid.ColumnDefinitions>
-            <TextBox x:Name="SearchTextBox" KeyDown="SearchTextBox_KeyDown" Style="{DynamicResource TextBoxStyleNord}" BorderThickness="2"  Grid.Column="4" Text="{Binding Path=Sourse}"  Height="30" Grid.Row="1"/>
+            <TextBox x:Name="SearchTextBox" KeyDown="SearchTextBox_KeyDown" Style="{DynamicResource TextBoxStyleNord}" BorderThickness="2"  Grid.Column="4" Text="{Binding Path=Sourse}"  Height="30" Grid.ColumnSpan="2"/>
             <Button  x:Name="ButtonBack" Content="❮" Style="{DynamicResource ButonStyleNord}" Width="35"  Click="Button_Click_Back" Height="30" />
             <Button  x:Name="ButtonForvard" Content="❯" Grid.Column="1" Style="{DynamicResource ButonStyleNord}" Width="35"   Click="Button_Click_Next" Height="30"/>
             <Button  x:Name="ButtonReload" Content="⭮" Grid.Column="2" Style="{DynamicResource ButonStyleNord}" Width="35" Click="Button_Click_Update" Height="30" />
             <Button  x:Name="ButtonHome" Content="⌂" Grid.Column="3"  Style="{DynamicResource ButonStyleNord}" Width="35" Click="Button_Click_GoHome" Height="30"/> 
-            <Button  x:Name="ButtonDownload" Content="🡇" Grid.Column="5" Style="{DynamicResource ButonStyleNord}" Width="35" Height="30" Click="ButtonDownload_Click" />
+          <!--  <Button  x:Name="ButtonDownload" Content="🡇" Grid.Column="5" Style="{DynamicResource ButonStyleNord}" Width="35" Height="30" Click="ButtonDownload_Click" /> -->
             <Button  x:Name="ButtonFavorite" Content="★" Grid.Column="6"  Style="{DynamicResource ButonStyleNord}" Width="35" Click="Button_Click_Add_Favorites" Height="30"/>
             <Button  x:Name="ButtonLists" Content="≡" Grid.Column="7" Style="{DynamicResource ButonStyleNord}" FontSize="20"  Width="35"  Click="Button_Click_History" Height="30" />
             <Button  x:Name="ButtonSettings" Content="⚙" Grid.Column="8"  Style="{DynamicResource ButonStyleNord}" Width="35" Click="Button_Click_Settings" Height="30" />
@@ -93,8 +93,8 @@
             <Label 
                 x:Name="IcoIncognito"
                 Content="{DynamicResource incognito}" 
-                Grid.Column="4" 
-                Visibility="Hidden"
+                Grid.Column="5" 
+                Visibility="Visible"
                 HorizontalAlignment="Right"
                 RenderOptions.BitmapScalingMode="Fant"
                 Padding="0,0,0,0"
@@ -322,6 +322,58 @@
                          BorderThickness="2" 
                          Height="30" Grid.Column="1"/>
             </Grid>
+        </Grid>
+
+        <Grid  
+            x:Name="GridWithDownliads" 
+            Grid.Row="3" 
+            HorizontalAlignment="Right" 
+            Visibility="Visible" 
+            Width="500"
+            Style="{DynamicResource GridListNord}"
+            VerticalAlignment="Top" >
+
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="26"/>
+                <RowDefinition/>
+                <RowDefinition Height="26"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Label x:Name="LabelDownload" Content="🡇 Downloads" Style="{DynamicResource LabelStyleNord}" />
+                <Button x:Name="Button_delete_Download"  Content="delete" Click="Button_Click_delete_item_Download"  
+                        Style="{DynamicResource ButonStyle2Nord}" Grid.Column="1" Width="80" Height="26"/>
+                <Button x:Name="Button_deleteAll_Download"  Content="delete All" Click="Button_Click_delete_item_Download_All"   
+                        Style="{DynamicResource ButonStyle2Nord}"  Grid.Column="2" Width="210" Height="26"/>
+            </Grid>
+
+
+            <ListView MouseDoubleClick="List_MouseDoubleClick" x:Name="ListDownloads" 
+                      BorderBrush="{x:Null}" Grid.Row="1"  
+                      Background="{x:Null}" 
+                      ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                      >
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Style="{DynamicResource TextBlockStyleNord}" Width="500" Text="{Binding}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Vertical"/>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+            </ListView>
         </Grid>
     </Grid>
 </Window>
