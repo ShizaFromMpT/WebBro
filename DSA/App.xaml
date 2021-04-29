@@ -12,6 +12,7 @@
                         <ResourceDictionary Source="Styles/Nord.xaml"/>
                         <ResourceDictionary Source="Styles/Light.xaml"/>
                         <ResourceDictionary Source="Styles/colors.xaml"/>
+                        <ResourceDictionary Source="Styles/Images.xaml"/>
                     </ResourceDictionary.MergedDictionaries>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>

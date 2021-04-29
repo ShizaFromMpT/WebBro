@@ -340,6 +340,7 @@ namespace DSA
         private void Button_Incognito_Click(object sender, RoutedEventArgs e)
         {
             this.isIncognitoMode = !this.isIncognitoMode;
+            IcoIncognito.Visibility = this.isIncognitoMode ?   Visibility.Visible :  Visibility.Hidden;
         }
 
         private void Button_Click_Add_Favorites(object sender, RoutedEventArgs e)
@@ -428,6 +429,7 @@ namespace DSA
             ButtonFavorite.Style = (Style)FindResource(styles[3]);
             ButtonLists.Style = (Style)FindResource(styles[3]);
             ButtonSettings.Style = (Style)FindResource(styles[3]);
+            ButtonIncognito.Style = (Style)FindResource(styles[3]);
 
             MyTabControl.Style = (Style)FindResource(styles[4]);
 

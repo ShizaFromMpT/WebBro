@@ -8,8 +8,22 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="img\incognito.png" />
+    <None Remove="img\krest.png" />
+    <None Remove="img\kva.png" />
+    <None Remove="img\line.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="CefSharp.Wpf.NETCore" Version="89.0.170" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="img\incognito.png" />
+    <Resource Include="img\krest.png" />
+    <Resource Include="img\kva.png" />
+    <Resource Include="img\line.png" />
   </ItemGroup>
 
 </Project>

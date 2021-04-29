@@ -12,6 +12,13 @@
         AllowsTransparency="False"
         Title="MainWindow" Height="800" Width="1200" BorderBrush="{x:Null}" >
 
+    <Window.Resources>
+        <Image x:Key="krest" Source="img/krest.png" Height="10" Width="10" />
+        <Image x:Key="line" Source="img/line.png" Height="10" Width="10" />
+        <Image x:Key="kva" Source="img/kva.png" Height="13" Width="13" />
+        <Image x:Key="incognito" Source="img/incognito.png" Height="20" Width="20"   />
+    </Window.Resources>
+
 
     <Grid x:Name="GridBackGround" Style="{DynamicResource GridBackgroundNord}">
         <Grid.RowDefinitions>
@@ -24,9 +31,40 @@
               Grid.ColumnSpan="5"
               MouseDown="Grid_Mouse"
               >
-            <Button Content="🞄"   FontSize="59" Width="25" Height="25" HorizontalAlignment="Right" VerticalAlignment="Center" Foreground="#FFFB5C5C" Background="{x:Null}" BorderBrush="{x:Null}" Click="Button_Click_shdo"  Padding="0,-31,0,0" />
-            <Button Content="🞄"  FontSize="59" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,25,0"   Width="25" Height="25" Foreground="#FF5CD1FB" Background="{x:Null}" BorderBrush="{x:Null}" Click="Button_Click_FullScreen"   Padding="0,-30,0,0"  />
-            <Button Content="🞄"  FontSize="59" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,50,0"   Width="25" Height="25" Foreground="#FFFFC850" Background="{x:Null}" BorderBrush="{x:Null}" Click="Button_Click_SV"   Padding="0,-30,0,0"  />
+            <Button Content="{DynamicResource krest}"
+                    Width="25" Height="25" 
+                    
+                    HorizontalAlignment="Right" 
+                    VerticalAlignment="Center" 
+       
+                    RenderOptions.BitmapScalingMode="Fant"
+                    Background="{x:Null}" 
+                    BorderBrush="{x:Null}" 
+                    Click="Button_Click_shdo"  />
+
+            <Button Content="{DynamicResource kva}"  
+                    HorizontalAlignment="Right" 
+                    VerticalAlignment="Center" 
+                    RenderOptions.BitmapScalingMode="Fant"
+                    Margin="0,0,25,0"  
+                    Width="25" Height="25" 
+                    Background="{x:Null}" 
+                    Padding="0,0,0,0"
+                    BorderBrush="{x:Null}" 
+                    Click="Button_Click_FullScreen"   
+                     />
+
+            <Button Content="{DynamicResource line}"  FontSize="59" 
+                    HorizontalAlignment="Right" 
+                    VerticalAlignment="Center" 
+                    Margin="0,0,50,0"   Width="25" 
+                    Height="25" Foreground="#FFFFC850"
+                     Padding="0,10,0,0"
+                    Background="{x:Null}"
+                    BorderBrush="{x:Null}" 
+                    RenderOptions.BitmapScalingMode="Fant"
+                    Click="Button_Click_SV"  
+                     />
         </Grid>
 
         <Grid Grid.Row="1">
@@ -52,6 +90,15 @@
             <Button  x:Name="ButtonLists" Content="≡" Grid.Column="7" Style="{DynamicResource ButonStyleNord}" FontSize="20"  Width="35"  Click="Button_Click_History" Height="30" />
             <Button  x:Name="ButtonSettings" Content="⚙" Grid.Column="8"  Style="{DynamicResource ButonStyleNord}" Width="35" Click="Button_Click_Settings" Height="30" />
             <Button x:Name="ButtonIncognito" Content="🔥" Grid.Column="9" Style="{DynamicResource ButonStyleNord}" Width="35" Click="Button_Incognito_Click" Height="30"/>
+            <Label 
+                x:Name="IcoIncognito"
+                Content="{DynamicResource incognito}" 
+                   Grid.Column="4" 
+                Visibility="Hidden"
+                   HorizontalAlignment="Right"
+                   RenderOptions.BitmapScalingMode="Fant"
+                   Padding="0,0,0,0"
+                   VerticalAlignment="Center" Width="24"/>
         </Grid>
 
 
