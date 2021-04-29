@@ -8,7 +8,7 @@
         xmlns:local="clr-namespace:DSA"
         mc:Ignorable="d"
         WindowStyle="None"
-       Background="Transparent"
+        Background="Transparent"
         AllowsTransparency="False"
         Title="MainWindow" Height="800" Width="1200" BorderBrush="{x:Null}" >
 
@@ -84,7 +84,7 @@
             <Button  x:Name="ButtonBack" Content="❮" Style="{DynamicResource ButonStyleNord}" Width="35"  Click="Button_Click_Back" Height="30" />
             <Button  x:Name="ButtonForvard" Content="❯" Grid.Column="1" Style="{DynamicResource ButonStyleNord}" Width="35"   Click="Button_Click_Next" Height="30"/>
             <Button  x:Name="ButtonReload" Content="⭮" Grid.Column="2" Style="{DynamicResource ButonStyleNord}" Width="35" Click="Button_Click_Update" Height="30" />
-            <Button  x:Name="ButtonHome" Content="⌂" Grid.Column="3"  Style="{DynamicResource ButonStyleNord}" Width="35" Click="Button_Click_GoHome" Height="30"/>
+            <Button  x:Name="ButtonHome" Content="⌂" Grid.Column="3"  Style="{DynamicResource ButonStyleNord}" Width="35" Click="Button_Click_GoHome" Height="30"/> 
             <Button  x:Name="ButtonDownload" Content="🡇" Grid.Column="5" Style="{DynamicResource ButonStyleNord}" Width="35" Height="30" Click="ButtonDownload_Click" />
             <Button  x:Name="ButtonFavorite" Content="★" Grid.Column="6"  Style="{DynamicResource ButonStyleNord}" Width="35" Click="Button_Click_Add_Favorites" Height="30"/>
             <Button  x:Name="ButtonLists" Content="≡" Grid.Column="7" Style="{DynamicResource ButonStyleNord}" FontSize="20"  Width="35"  Click="Button_Click_History" Height="30" />
@@ -306,7 +306,7 @@
             </Grid>
 
 
-            <Grid Grid.Row="3 " Height="30">
+            <Grid Grid.Row="3" Height="30">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="80"/>
                     <ColumnDefinition/>

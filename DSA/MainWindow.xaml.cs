@@ -4,9 +4,11 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.Json;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -32,7 +34,9 @@ namespace DSA
         ObservableCollection<string> history = new ObservableCollection<string>();
         ObservableCollection<string> favorites = new ObservableCollection<string>();
         string startPage, homePage;
-        
+        public static WebClient client = new WebClient();
+        public static string UriDownload;
+
 
         public static List<string> list_themeNord = new List<string>
         {
@@ -88,6 +92,8 @@ namespace DSA
             GridWithLists.Width = 0;
             GridWithSettings.Width = 0;
 
+            client.DownloadFileCompleted += Client_DownloadFileCompleted;
+
             // check is file exists
             if (!File.Exists(DataBase.FILE_HISTORY))
                 File.Create(DataBase.FILE_HISTORY);
@@ -118,6 +124,7 @@ namespace DSA
             tab1.Header = tab1.Content.Title;
 
 
+            tab1.Content.DownloadHandler = new MyDownloadHandler();
             tab1.Content.TitleChanged += ChromiumWebBrowser_TitleChanged;
             tab1.Content.AddressChanged += ChromiumBrowser_AddressChanged;
 
@@ -131,10 +138,11 @@ namespace DSA
             ListFavorites.ItemsSource = favorites;
         }
 
+        private void Client_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
+        {
+            MessageBox.Show("Complete");
+        }
 
-       
-
-     
         private void Button_Click_SV(object sender, RoutedEventArgs e)
         {
             this.WindowState = WindowState.Minimized;
@@ -202,6 +210,7 @@ namespace DSA
                 Header = "+",
                 IsPlaceholder = true
             };
+     
             Tabs.Add(plusTab);
         }
 
@@ -346,6 +355,7 @@ namespace DSA
                 TabVM tw = new TabVM();
                 tw.Content = new ChromiumWebBrowser(listView.SelectedItem as string);
                 tw.Header = tw.Content.Title;
+                tw.Content.DownloadHandler = new MyDownloadHandler();
                 Tabs.Insert(Tabs.Count - 1, tw);
             }
 
@@ -487,6 +497,37 @@ namespace DSA
                 DataBase.writeInFile(DataBase.FILE_HOME_PAGE, str, FileMode.Create);
             }
                 
+        }
+
+      
+        
+    }
+
+
+
+    public class MyDownloadHandler : IDownloadHandler
+    {
+        public event EventHandler<DownloadItem> OnBeforeDownloadFired;
+        public event EventHandler<DownloadItem> OnDownloadUpdatedFired;
+
+        public void OnBeforeDownload(IWebBrowser chromiumWebBrowser, IBrowser browser, DownloadItem downloadItem, IBeforeDownloadCallback callback)
+        {
+
+            OnBeforeDownloadFired?.Invoke(this, downloadItem);
+
+            if (!callback.IsDisposed)
+            {
+                using (callback)
+                {
+                    callback.Continue(downloadItem.SuggestedFileName, showDialog : true);
+                }
+            }
+
+        }
+
+        public void OnDownloadUpdated(IWebBrowser chromiumWebBrowser, IBrowser browser, DownloadItem downloadItem, IDownloadItemCallback callback)
+        {
+            OnDownloadUpdatedFired?.Invoke(this, downloadItem);
         }
     }
 }
