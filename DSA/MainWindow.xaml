@@ -94,7 +94,7 @@
                 x:Name="IcoIncognito"
                 Content="{DynamicResource incognito}" 
                 Grid.Column="5" 
-                Visibility="Visible"
+                Visibility="Hidden"
                 HorizontalAlignment="Right"
                 RenderOptions.BitmapScalingMode="Fant"
                 Padding="0,0,0,0"
@@ -113,7 +113,36 @@
                                    
                                    TextBlock.FontSize="9" 
                                    TextBlock.Foreground="{DynamicResource Frost_3}"
-                                   />
+                                   
+                                   
+                                   
+                                   >
+
+                                <Label.ContextMenu>
+                                    <ContextMenu>
+                                        <Button x:Name="Button_DoubleTab" 
+                                                Content="Double tab" 
+                                                Background="{x:Null}"
+                                                BorderBrush="{x:Null}"
+                                                Click="Button_Click_DoubleTab"/>
+                                        <Button x:Name="Button_CloseTab" 
+                                                 Background="{x:Null}"
+                                                BorderBrush="{x:Null}"
+                                                Content="Close tab" 
+                                                Click="OnTabCloseClick"/>
+                                        <Button x:Name="Button_CloseAllTab" 
+                                                 Background="{x:Null}"
+                                                BorderBrush="{x:Null}"
+                                                Content="Close all tabs" 
+                                                Click="MenuItem_Click_Close_All_Tabs"/>
+                                    </ContextMenu>
+                                </Label.ContextMenu>
+                                
+                            </Label>
+
+                            
+                           
+                            
                             <Button Click="OnTabCloseClick"  Margin="10 0 0 0"
                                HorizontalAlignment="Right" 
                                Foreground="{DynamicResource Aurora_rad}"  
@@ -328,7 +357,7 @@
             x:Name="GridWithDownliads" 
             Grid.Row="3" 
             HorizontalAlignment="Right" 
-            Visibility="Visible" 
+            Visibility="Hidden" 
             Width="500"
             Style="{DynamicResource GridListNord}"
             VerticalAlignment="Top" >

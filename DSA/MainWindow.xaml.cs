@@ -183,16 +183,21 @@ namespace DSA
 
         private void MyTabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (e.Source is TabControl)
+            try
             {
-                var pos = MyTabControl.SelectedIndex;
-                if (pos != 0 && pos == Tabs.Count - 1) //last tab
+                if (e.Source is TabControl)
                 {
-                    var tab = Tabs.Last();
-                    ConvertPlusToNewTab(tab);
-                    AddNewPlusButton();
+                    var pos = MyTabControl.SelectedIndex;
+                    if (pos != 0 && pos == Tabs.Count - 1) //last tab
+                    {
+                        var tab = Tabs.Last();
+                        ConvertPlusToNewTab(tab);
+                        AddNewPlusButton();
+                    }
                 }
             }
+            catch(Exception e2) { }
+          
         }
 
 
@@ -224,16 +229,21 @@ namespace DSA
 
         private void OnTabCloseClick(object sender, RoutedEventArgs e)
         {
-            var tab = (sender as Button).DataContext as TabVM;
-            if (Tabs.Count > 2)
+            try
             {
-                var index = Tabs.IndexOf(tab);
-                if (index == Tabs.Count - 2)
+                var tab = (sender as Button).DataContext as TabVM;
+                if (Tabs.Count > 2)
                 {
-                    MyTabControl.SelectedIndex--;
+                    var index = Tabs.IndexOf(tab);
+                    if (index == Tabs.Count - 2)
+                    {
+                        MyTabControl.SelectedIndex--;
+                    }
+                    Tabs.RemoveAt(index);
                 }
-                Tabs.RemoveAt(index);
             }
+            catch (Exception e2) { }
+           
         }
 
 
@@ -301,7 +311,6 @@ namespace DSA
 
         private void Button_Click_History(object sender, RoutedEventArgs e)
         {
-
             DoubleAnimation animation = new DoubleAnimation();
             animation.From = GridWithLists.ActualWidth;
             if (GridWithLists.ActualWidth == 0)
@@ -401,7 +410,7 @@ namespace DSA
 
         private void List_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            ListView listView = (ListView)sender;
+            ListView listView = (ListView) sender;
             if (listView.SelectedItem != null)
             {
                 TabIndex++;
@@ -485,9 +494,6 @@ namespace DSA
             TextBoxStartPage.Style = (Style)FindResource(styles[2]);
             TextBoxHomePage.Style = (Style)FindResource(styles[2]);
 
-
-
-
             ButtonBack.Style = (Style)FindResource(styles[3]);
             ButtonForvard.Style = (Style)FindResource(styles[3]);
             ButtonReload.Style = (Style)FindResource(styles[3]);
@@ -497,8 +503,6 @@ namespace DSA
             ButtonLists.Style = (Style)FindResource(styles[3]);
             ButtonSettings.Style = (Style)FindResource(styles[3]);
             ButtonIncognito.Style = (Style)FindResource(styles[3]);
-
-
 
             MyTabControl.Style = (Style)FindResource(styles[4]);
 
@@ -522,6 +526,7 @@ namespace DSA
             Button_Apply_Theme.Style = (Style)FindResource(styles[7]);
             Button_delete_Download.Style = (Style)FindResource(styles[7]);
             Button_deleteAll_Download.Style = (Style)FindResource(styles[7]);
+
 
             // CheckBoxIncognito.Style = (Style)FindResource(styles[9]);
 
@@ -553,6 +558,36 @@ namespace DSA
         private void Button_Click_delete_item_Download_All(object sender, RoutedEventArgs e)
         {
             downloads.Clear();
+        }
+
+        private void MenuItem_Click_Close_All_Tabs(object sender, RoutedEventArgs e)
+        {
+            Tabs.Clear();
+            var tab1 = new TabVM();
+
+            tab1.Content = new ChromiumWebBrowser(startPage);
+            tab1.Header = tab1.Content.Title;
+
+
+            tab1.Content.DownloadHandler = new MyDownloadHandler();
+            tab1.Content.TitleChanged += ChromiumWebBrowser_TitleChanged;
+            tab1.Content.AddressChanged += ChromiumBrowser_AddressChanged;
+
+
+            Tabs.Add(tab1);
+            AddNewPlusButton();
+        }
+
+        private void Button_Click_DoubleTab(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                TabVM tab = (sender as Button).DataContext as TabVM;
+                TabVM tab1 = (TabVM)tab.Clone();
+                Tabs.Insert(Tabs.Count - 1, tab1);
+
+            }
+            catch (Exception e2) { }
         }
 
         private void TextBoxHomePage_KeyDown(object sender, KeyEventArgs e)
@@ -590,8 +625,6 @@ namespace DSA
 
         public void OnDownloadUpdated(IWebBrowser chromiumWebBrowser, IBrowser browser, DownloadItem downloadItem, IDownloadItemCallback callback)
         {
-
-
             OnDownloadUpdatedFired?.Invoke(this, downloadItem);
         }
     }

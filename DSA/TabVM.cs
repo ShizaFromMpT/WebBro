@@ -6,7 +6,7 @@ using System.Text;
 
 namespace DSA
 {
-    class TabVM : INotifyPropertyChanged
+    class TabVM : INotifyPropertyChanged, ICloneable
     {
         string _Header;
         public string Header
@@ -49,6 +49,11 @@ namespace DSA
         void OnPropertyChanged([CallerMemberName] string property = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
+        }
+
+        public object Clone()
+        {
+            return this.MemberwiseClone();
         }
     }
 }
